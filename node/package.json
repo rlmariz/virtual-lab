@@ -1,0 +1,16 @@
+{
+  "name": "virtuallab",
+  "version": "1.0.0",
+  "description": "Virtual Lab - Simulação de Plantas Industriais",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ricardo Lima Mariz",
+  "license": "ISC",
+  "node-red": {
+    "nodes": {
+      "lower-case": "sensor-nivel.js"
+    }
+  }
+}

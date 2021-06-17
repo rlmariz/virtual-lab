@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+    auth:
+        image: nodered/node-red:latest
+        environment:
+            - TZ=America/Sao_Paulo
+        ports:
+            - "1880:1880"
+        container_name: node-red
+        hostname: virtuallab
+        restart: unless-stopped
+        networks:
+            - node-red-net
+        volumes:
+            #- "./.node-red:/data"
+            - node-red-data:/data
+            - "./node:/node"
+
+volumes:
+  node-red-data:
+
+networks:
+  node-red-net:
