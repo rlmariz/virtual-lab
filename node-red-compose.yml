@@ -6,15 +6,14 @@ services:
             - TZ=America/Sao_Paulo
         ports:
             - "1880:1880"
-        container_name: node-red
+        container_name: virtual-lab
         hostname: virtuallab
         restart: unless-stopped
         networks:
             - node-red-net
         volumes:
-            #- "./.node-red:/data"
             - node-red-data:/data
-            - "./node:/node"
+            - "./nodes:/node-red-contrib-virtual-lab"
 
 volumes:
   node-red-data:

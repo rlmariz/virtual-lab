@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    ".node-red\\node_modules": true,
+    ".node-red\\.npm": true,
+    ".vscode": true,
+    ".node-red": true,
+    "nodes\\node_modules": true
+  }
+}
