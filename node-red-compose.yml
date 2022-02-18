@@ -1,22 +1,63 @@
 version: "3.9"
 services:
-    auth:
-        image: nodered/node-red:latest
+    virtuallab:
+        build: .
+        image: virtual-lab
         environment:
             - TZ=America/Sao_Paulo
+            - NODE_RED_ENABLE_SAFE_MODE=true # setting to true starts Node-RED in safe (not running) mode
         ports:
             - "1880:1880"
+            - "502:502"            
         container_name: virtual-lab
         hostname: virtuallab
         restart: unless-stopped
-        networks:
-            - node-red-net
         volumes:
-            - node-red-data:/data
+            - "./node-red-data:/data"
             - "./nodes:/node-red-contrib-virtual-lab"
 
-volumes:
-  node-red-data:
+    database:
+        container_name: mysql
+        image: mysql/mysql-server:5.7.16
+        ports:
+            - "3306:3306"
+        environment: 
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=root
+            - MYSQL_DATABASE=scadalts
+        expose: ["3306"]
+        volumes:
+            -   ./scadalts-data:/var/lib/mysql
 
-networks:
-  node-red-net:
+    scadalts:
+        # https://github.com/SCADA-LTS/Scada-LTS
+        # http://127.0.0.1:8080/Scada-LTS
+        image: scadalts/scadalts:latest
+        environment:
+            - TZ=America/Sao_Paulo
+        ports:
+            - "8080:8080"
+        container_name: scadalts
+        hostname: scadalts
+        restart: unless-stopped
+        depends_on: 
+            - database
+            - virtuallab
+        expose: ["8080", "8000"]
+        links:
+            - database:database
+            - virtuallab:virtuallab
+
+    phpmyadmin:
+        container_name: scadalts_phpmyadmin
+        depends_on:
+            - scadalts
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - '8081:80'
+        environment:
+            PMA_HOST: database
+            MYSQL_ROOT_PASSWORD: root
+        links:
+            - database:database

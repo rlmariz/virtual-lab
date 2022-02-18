@@ -1,0 +1,988 @@
+[
+    {
+        "id": "30eabd99172917aa",
+        "type": "tab",
+        "label": "Simulation",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dd13224eac8a9289",
+        "type": "tab",
+        "label": "ModBus",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a54fcc72.b7a24",
+        "type": "tab",
+        "label": "Buffer Test",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "fcac8d51.7bff8",
+        "type": "modbus-client",
+        "name": "NodeModbus",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "tcpHost": "virtuallab",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "",
+        "unit_id": 1,
+        "commandDelay": 1,
+        "clientTimeout": 1000,
+        "reconnectOnTimeout": false,
+        "reconnectTimeout": 2000,
+        "parallelUnitIdsAllowed": false
+    },
+    {
+        "id": "49d3193f.f38d88",
+        "type": "modbus-client",
+        "name": "NodeRedNode",
+        "clienttype": "tcp",
+        "bufferCommands": true,
+        "stateLogEnabled": false,
+        "queueLogEnabled": false,
+        "tcpHost": "virtuallab",
+        "tcpPort": "502",
+        "tcpType": "DEFAULT",
+        "serialPort": "/dev/ttyUSB",
+        "serialType": "RTU-BUFFERD",
+        "serialBaudrate": "9600",
+        "serialDatabits": "8",
+        "serialStopbits": "1",
+        "serialParity": "none",
+        "serialConnectionDelay": "100",
+        "serialAsciiResponseStartDelimiter": "",
+        "unit_id": "1",
+        "commandDelay": "1",
+        "clientTimeout": "1000",
+        "reconnectOnTimeout": false,
+        "reconnectTimeout": "2000",
+        "parallelUnitIdsAllowed": false
+    },
+    {
+        "id": "2867b8f5.c0377",
+        "type": "mqtt-broker",
+        "name": "localhost",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "7b4460f816a46442",
+        "type": "tanque",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "flow": "[\n    {\n       \"duration\":1,\n       \"flow\":1\n    },\n    {\n       \"duration\":2,\n       \"flow\":1.5\n    },\n    {\n       \"duration\":3,\n       \"flow\":2.5\n    },\n    {\n       \"duration\":1,\n       \"flow\":3\n    },\n    {\n       \"duration\":5,\n       \"flow\":4\n    },\n    {\n       \"duration\":4,\n       \"flow\":3\n    },\n    {\n       \"duration\":7,\n       \"flow\":2\n    },\n    {\n       \"duration\":7,\n       \"flow\":1\n    },\n    {\n       \"duration\":8,\n       \"flow\":0\n    },\n    {\n       \"duration\":5,\n       \"flow\":0.5\n    },\n    {\n       \"duration\":6,\n       \"flow\":5\n    },\n    {\n       \"duration\":3,\n       \"flow\":0\n    },\n    {\n       \"duration\":8,\n       \"flow\":2\n    }\n ]",
+        "x": 330,
+        "y": 240,
+        "wires": [
+            [
+                "f9e559a92cb0b60c",
+                "d72a4fe3cce0ecc4"
+            ],
+            [
+                "d6d24deb8f0b07c3",
+                "e96cb405f5725aab"
+            ]
+        ]
+    },
+    {
+        "id": "f9e559a92cb0b60c",
+        "type": "debug",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "cf4ffac3119bf330",
+        "type": "inject",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "4264b4e037402c0d"
+            ]
+        ]
+    },
+    {
+        "id": "d20fd716aa24d474",
+        "type": "inject",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "4264b4e037402c0d"
+            ]
+        ]
+    },
+    {
+        "id": "f0b4fc97ae3424d3",
+        "type": "inject",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "2",
+        "payloadType": "num",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "4264b4e037402c0d"
+            ]
+        ]
+    },
+    {
+        "id": "d72a4fe3cce0ecc4",
+        "type": "function",
+        "z": "30eabd99172917aa",
+        "name": "Float to Buffer",
+        "func": "var payload=msg.payload;\nvar buf = Buffer.alloc(4);\nbuf.writeFloatBE(payload);\nmsg.payload = buf;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 120,
+        "wires": [
+            [
+                "bcc0f9c8aa2fbc0c"
+            ]
+        ]
+    },
+    {
+        "id": "bcc0f9c8aa2fbc0c",
+        "type": "modbus-write",
+        "z": "30eabd99172917aa",
+        "name": "Level",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "MHoldingRegisters",
+        "adr": "0",
+        "quantity": "4",
+        "server": "fcac8d51.7bff8",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 650,
+        "y": 120,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "4264b4e037402c0d",
+        "type": "function",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "7b4460f816a46442",
+                "d1eabf4b7cc34ec3"
+            ]
+        ]
+    },
+    {
+        "id": "d1eabf4b7cc34ec3",
+        "type": "function",
+        "z": "30eabd99172917aa",
+        "name": "Float to Buffer",
+        "func": "var payload=msg.payload;\nvar buf = Buffer.alloc(4);\nbuf.writeFloatBE(payload);\nmsg.payload = buf;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 420,
+        "wires": [
+            [
+                "9aa1ff4bb98fdd7c"
+            ]
+        ]
+    },
+    {
+        "id": "9aa1ff4bb98fdd7c",
+        "type": "modbus-write",
+        "z": "30eabd99172917aa",
+        "name": "Qe In",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "MHoldingRegisters",
+        "adr": "4",
+        "quantity": "4",
+        "server": "fcac8d51.7bff8",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 630,
+        "y": 420,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d6d24deb8f0b07c3",
+        "type": "debug",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "e96cb405f5725aab",
+        "type": "function",
+        "z": "30eabd99172917aa",
+        "name": "Float to Buffer",
+        "func": "var payload=msg.payload;\nvar buf = Buffer.alloc(4);\nbuf.writeFloatBE(payload);\nmsg.payload = buf;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "0e1bfd37d59c32fa"
+            ]
+        ]
+    },
+    {
+        "id": "0e1bfd37d59c32fa",
+        "type": "modbus-write",
+        "z": "30eabd99172917aa",
+        "name": "Qe Out",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "unitid": "1",
+        "dataType": "MHoldingRegisters",
+        "adr": "8",
+        "quantity": "4",
+        "server": "fcac8d51.7bff8",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 620,
+        "y": 360,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a88c0232.0afee",
+        "type": "inject",
+        "z": "dd13224eac8a9289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1.234",
+        "payloadType": "num",
+        "x": 130,
+        "y": 180,
+        "wires": [
+            [
+                "6333ed6a.3722a4"
+            ]
+        ]
+    },
+    {
+        "id": "6333ed6a.3722a4",
+        "type": "modbus-server",
+        "z": "dd13224eac8a9289",
+        "name": "Note-Modbus",
+        "logEnabled": false,
+        "hostname": "virtuallab",
+        "serverPort": "502",
+        "responseDelay": 100,
+        "delayUnit": "ms",
+        "coilsBufferSize": 10000,
+        "holdingBufferSize": 10000,
+        "inputBufferSize": 10000,
+        "discreteBufferSize": 10000,
+        "showErrors": false,
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "4acf94c6.22685c"
+            ],
+            [
+                "44f37aee.f14f84"
+            ],
+            [
+                "be800b.cfec8ff8"
+            ],
+            [
+                "2add1125.dd8b0e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4acf94c6.22685c",
+        "type": "debug",
+        "z": "dd13224eac8a9289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 650,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "44f37aee.f14f84",
+        "type": "debug",
+        "z": "dd13224eac8a9289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 650,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "be800b.cfec8ff8",
+        "type": "debug",
+        "z": "dd13224eac8a9289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 650,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "2add1125.dd8b0e",
+        "type": "debug",
+        "z": "dd13224eac8a9289",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 650,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "9e3cd65f9ab46e5e",
+        "type": "modbus-read",
+        "z": "dd13224eac8a9289",
+        "name": "",
+        "topic": "",
+        "showStatusActivities": false,
+        "logIOActivities": false,
+        "showErrors": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "12",
+        "quantity": "2",
+        "rate": "2",
+        "rateUnit": "s",
+        "delayOnStart": false,
+        "startDelayTime": "",
+        "server": "49d3193f.f38d88",
+        "useIOFile": false,
+        "ioFile": "",
+        "useIOForPayload": false,
+        "emptyMsgOnFail": false,
+        "x": 330,
+        "y": 340,
+        "wires": [
+            [
+                "80f4cafac99e0c02"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "80f4cafac99e0c02",
+        "type": "debug",
+        "z": "dd13224eac8a9289",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 550,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "d23ce7562e9b84aa",
+        "type": "modbus-write",
+        "z": "dd13224eac8a9289",
+        "d": true,
+        "name": "",
+        "showStatusActivities": false,
+        "showErrors": false,
+        "unitid": "",
+        "dataType": "HoldingRegister",
+        "adr": "12",
+        "quantity": "1",
+        "server": "fcac8d51.7bff8",
+        "emptyMsgOnFail": false,
+        "keepMsgProperties": false,
+        "x": 580,
+        "y": 420,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "43e06968b542633a",
+        "type": "inject",
+        "z": "dd13224eac8a9289",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 270,
+        "y": 420,
+        "wires": [
+            [
+                "d23ce7562e9b84aa"
+            ]
+        ]
+    },
+    {
+        "id": "e9e630f7.0add98",
+        "type": "function",
+        "z": "a54fcc72.b7a24",
+        "name": "float Buffer to decimal conv.",
+        "func": "const buf = msg.payload;\nconst value = buf.readFloatBE();\nmsg.payload = value;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 180,
+        "y": 360,
+        "wires": [
+            [
+                "5406842f.6da2cc"
+            ]
+        ]
+    },
+    {
+        "id": "89aefc80.6794b8",
+        "type": "function",
+        "z": "a54fcc72.b7a24",
+        "name": "Integer to Buffer conv.",
+        "func": "var payload=msg.payload;\nvar buf = Buffer.alloc(2);\nbuf.writeInt16BE(payload);\nmsg.payload=buf;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "d8def1a8.4b675",
+                "a725b8c0.ccdcd"
+            ]
+        ]
+    },
+    {
+        "id": "d8def1a8.4b675",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 390,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "38632bf2.36e304",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d5d13869.60b6f",
+        "type": "inject",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "259",
+        "payloadType": "num",
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "89aefc80.6794b8"
+            ]
+        ]
+    },
+    {
+        "id": "a725b8c0.ccdcd",
+        "type": "function",
+        "z": "a54fcc72.b7a24",
+        "name": "buffer to decimal Integer conv.",
+        "func": "var buf = msg.payload;\nvar value = buf.readInt16BE();\nmsg.payload = value;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 200,
+        "wires": [
+            [
+                "b0edcdab.f53d78"
+            ]
+        ]
+    },
+    {
+        "id": "84c0bdcd.88cd28",
+        "type": "inject",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "8.325",
+        "payloadType": "num",
+        "x": 90,
+        "y": 240,
+        "wires": [
+            [
+                "61cee1d.73b00a"
+            ]
+        ]
+    },
+    {
+        "id": "61cee1d.73b00a",
+        "type": "function",
+        "z": "a54fcc72.b7a24",
+        "name": "Float to Buffer conv.",
+        "func": "var payload=msg.payload;\nvar buf = Buffer.alloc(4);\nbuf.writeFloatBE(payload);\nmsg.payload=buf;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 250,
+        "y": 280,
+        "wires": [
+            [
+                "38632bf2.36e304",
+                "e9e630f7.0add98"
+            ]
+        ]
+    },
+    {
+        "id": "5776540a.35f0a4",
+        "type": "function",
+        "z": "a54fcc72.b7a24",
+        "name": "Create Buffer",
+        "func": "var buf=Buffer.alloc(10);\nvar a=[259,260,261,262,263];\nfor (var i=0,j=0;j<a.length;i+=2,j++)\n{\n    node.log(j+\"  \" +a.length);\n buf.writeInt16BE(a[j],i); \n\n}\nnode.log(buf);\nmsg.payload=buf;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 190,
+        "y": 480,
+        "wires": [
+            [
+                "340ad049.7af2a",
+                "ba10cd59.c0f5b"
+            ]
+        ]
+    },
+    {
+        "id": "340ad049.7af2a",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 430,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "815d3a78.d9ddc8",
+        "type": "inject",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 420,
+        "wires": [
+            [
+                "5776540a.35f0a4"
+            ]
+        ]
+    },
+    {
+        "id": "ba10cd59.c0f5b",
+        "type": "mqtt out",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "topic": "test_buffer",
+        "qos": "",
+        "retain": "",
+        "broker": "2867b8f5.c0377",
+        "x": 280,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "286354ac.88af3c",
+        "type": "mqtt in",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "topic": "test_buffer",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "2867b8f5.c0377",
+        "inputs": 0,
+        "x": 100,
+        "y": 620,
+        "wires": [
+            [
+                "902907ae.22b32",
+                "6cf0b6c5.411b58"
+            ]
+        ]
+    },
+    {
+        "id": "902907ae.22b32",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "Received data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 440,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "34401095.7babf8",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "Decoded Buffer data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 390,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "6cf0b6c5.411b58",
+        "type": "function",
+        "z": "a54fcc72.b7a24",
+        "name": "Decode Buffer",
+        "func": "var buf=msg.payload;\nvar a=[];\nfor (var i=0,j=0;i<buf.length;i+=2,j++)\n{\nnode.log(j+\"  \" +a.length);\n a[j]=buf.readInt16BE(i); \n\n}\nmsg.payload=a;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 160,
+        "y": 720,
+        "wires": [
+            [
+                "34401095.7babf8"
+            ]
+        ]
+    },
+    {
+        "id": "4d1eba0e.0464bc",
+        "type": "function",
+        "z": "a54fcc72.b7a24",
+        "name": "Create Buffer Int +Float",
+        "func": "var buf=Buffer.alloc(6);\nvar a=259;\nvar b=260.5;\nbuf.writeInt16BE(a,0); \nbuf.writeFloatBE(b,2); \nmsg.payload=buf;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 220,
+        "y": 1240,
+        "wires": [
+            [
+                "15cadeed.095e71",
+                "9b9a8661.86c218"
+            ]
+        ]
+    },
+    {
+        "id": "fb7528b6.06a6c8",
+        "type": "inject",
+        "z": "a54fcc72.b7a24",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 1140,
+        "wires": [
+            [
+                "4d1eba0e.0464bc"
+            ]
+        ]
+    },
+    {
+        "id": "a5644937.a6bc78",
+        "type": "comment",
+        "z": "a54fcc72.b7a24",
+        "name": "Buffer=Int +float",
+        "info": "",
+        "x": 180,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "15cadeed.095e71",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "Int+Float ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 440,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "9b9a8661.86c218",
+        "type": "function",
+        "z": "a54fcc72.b7a24",
+        "name": "Decode Buffer",
+        "func": "var buf=msg.payload;\n\nvar a=buf.readInt16BE(0); \nvar b=buf.readFloatBE(2); \nmsg.payload=a.toString() +\"  Float=  \"+ b.toFixed(2) ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 220,
+        "y": 1360,
+        "wires": [
+            [
+                "8bd3aa5f.394968"
+            ]
+        ]
+    },
+    {
+        "id": "8bd3aa5f.394968",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "Decode",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 440,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "b0edcdab.f53d78",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "Integer",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 450,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "5406842f.6da2cc",
+        "type": "debug",
+        "z": "a54fcc72.b7a24",
+        "name": "Float",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 458.0833435058594,
+        "y": 354.5833435058594,
+        "wires": []
+    }
+]

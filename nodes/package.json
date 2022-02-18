@@ -11,9 +11,8 @@
   "license": "ISC",
   "node-red": {
     "nodes": {
-      "sensor-nivel": "sensor.js",
-      "processo": "processo.js",
-      "lower-case": "lower-case.js"
+      "sensor": "sensor.js",
+      "tanque": "tanque.js"
     }
   },
   "dependencies": {
