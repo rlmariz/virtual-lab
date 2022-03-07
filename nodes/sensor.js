@@ -3,12 +3,14 @@ module.exports = function(RED) {
     function SensorNode(n) {
         RED.nodes.createNode(this, n);
 
-        this.inputMin = n.inputMin;
-        this.inputMax = n.inputMax;
-        this.outputMin = n.inputMin;
-        this.outputMax = n.outputMax;
+        this.inputMin = n.inputMin * 1.0;
+        this.inputMax = n.inputMax * 1.0;
+        this.outputMin = n.outputMin * 1.0;
+        this.outputMax = n.outputMax * 1.0;
 
         var node = this;
+
+        const utl = require('./utils')
 
         node.on('input', function(msg) {
             let valueInput = msg.payload;
@@ -22,9 +24,11 @@ module.exports = function(RED) {
             }
 
             //faz a interpolação linear
-            let valueOutput = (((valueInput - this.inputMin) / (this.inputMax - this.inputMin)) * (this.outputMax - this.outputMin)) + this.outputMin;
+            let valueOutput = utl.range(node.inputMin, node.inputMax, node.outputMin, node.outputMax, valueInput);
             msg.payload = valueOutput;
             node.send(msg);
+
+            node.status({fill:"blue",shape:"dot",text:"out:" + valueOutput});
         });
     }
 
