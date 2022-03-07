@@ -18,7 +18,9 @@ services:
 
     database:
         container_name: mysql
+        hostname: mysql
         image: mysql/mysql-server:5.7.16
+        restart: unless-stopped
         ports:
             - "3306:3306"
         environment: 
