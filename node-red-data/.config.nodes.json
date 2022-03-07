@@ -432,6 +432,28 @@
                 "user": false,
                 "module": "node-red-contrib-virtuallab",
                 "file": "/data/node_modules/node-red-contrib-virtuallab/tanque.js"
+            },
+            "pidcontrol": {
+                "name": "pidcontrol",
+                "types": [
+                    "PID control"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-virtuallab",
+                "file": "/data/node_modules/node-red-contrib-virtuallab/pidcontrol.js"
+            },
+            "atuador": {
+                "name": "atuador",
+                "types": [
+                    "atuador"
+                ],
+                "enabled": true,
+                "local": true,
+                "user": false,
+                "module": "node-red-contrib-virtuallab",
+                "file": "/data/node_modules/node-red-contrib-virtuallab/atuador.js"
             }
         }
     },

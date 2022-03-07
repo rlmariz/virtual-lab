@@ -99,113 +99,27 @@
         "id": "7b4460f816a46442",
         "type": "tanque",
         "z": "30eabd99172917aa",
-        "name": "",
-        "flow": "[\n    {\n       \"duration\":1,\n       \"flow\":1\n    },\n    {\n       \"duration\":2,\n       \"flow\":1.5\n    },\n    {\n       \"duration\":3,\n       \"flow\":2.5\n    },\n    {\n       \"duration\":1,\n       \"flow\":3\n    },\n    {\n       \"duration\":5,\n       \"flow\":4\n    },\n    {\n       \"duration\":4,\n       \"flow\":3\n    },\n    {\n       \"duration\":7,\n       \"flow\":2\n    },\n    {\n       \"duration\":7,\n       \"flow\":1\n    },\n    {\n       \"duration\":8,\n       \"flow\":0\n    },\n    {\n       \"duration\":5,\n       \"flow\":0.5\n    },\n    {\n       \"duration\":6,\n       \"flow\":5\n    },\n    {\n       \"duration\":3,\n       \"flow\":0\n    },\n    {\n       \"duration\":8,\n       \"flow\":2\n    }\n ]",
-        "x": 330,
-        "y": 240,
+        "name": "Tanque",
+        "valveK": "0.5",
+        "valveOpen": "0",
+        "area": "1",
+        "startInputFlow": "0",
+        "startOutputFlow": "0",
+        "startLevel": "4",
+        "modbusHost": "192.168.5.143",
+        "modbusPort": "502",
+        "modbusRegister": "12",
+        "integrationInterval": "1",
+        "intervalUpdate": "1000",
+        "x": 500,
+        "y": 260,
         "wires": [
             [
-                "f9e559a92cb0b60c",
-                "d72a4fe3cce0ecc4"
+                "d72a4fe3cce0ecc4",
+                "ecead97328f86368"
             ],
             [
-                "d6d24deb8f0b07c3",
                 "e96cb405f5725aab"
-            ]
-        ]
-    },
-    {
-        "id": "f9e559a92cb0b60c",
-        "type": "debug",
-        "z": "30eabd99172917aa",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 570,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "cf4ffac3119bf330",
-        "type": "inject",
-        "z": "30eabd99172917aa",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "0",
-        "payloadType": "num",
-        "x": 110,
-        "y": 60,
-        "wires": [
-            [
-                "4264b4e037402c0d"
-            ]
-        ]
-    },
-    {
-        "id": "d20fd716aa24d474",
-        "type": "inject",
-        "z": "30eabd99172917aa",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "1",
-        "payloadType": "num",
-        "x": 110,
-        "y": 120,
-        "wires": [
-            [
-                "4264b4e037402c0d"
-            ]
-        ]
-    },
-    {
-        "id": "f0b4fc97ae3424d3",
-        "type": "inject",
-        "z": "30eabd99172917aa",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "2",
-        "payloadType": "num",
-        "x": 110,
-        "y": 180,
-        "wires": [
-            [
-                "4264b4e037402c0d"
             ]
         ]
     },
@@ -221,7 +135,7 @@
         "finalize": "",
         "libs": [],
         "x": 460,
-        "y": 120,
+        "y": 40,
         "wires": [
             [
                 "bcc0f9c8aa2fbc0c"
@@ -243,30 +157,10 @@
         "emptyMsgOnFail": false,
         "keepMsgProperties": false,
         "x": 650,
-        "y": 120,
+        "y": 40,
         "wires": [
             [],
             []
-        ]
-    },
-    {
-        "id": "4264b4e037402c0d",
-        "type": "function",
-        "z": "30eabd99172917aa",
-        "name": "",
-        "func": "\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 140,
-        "y": 240,
-        "wires": [
-            [
-                "7b4460f816a46442",
-                "d1eabf4b7cc34ec3"
-            ]
         ]
     },
     {
@@ -280,8 +174,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
-        "y": 420,
+        "x": 460,
+        "y": 120,
         "wires": [
             [
                 "9aa1ff4bb98fdd7c"
@@ -302,28 +196,12 @@
         "server": "fcac8d51.7bff8",
         "emptyMsgOnFail": false,
         "keepMsgProperties": false,
-        "x": 630,
-        "y": 420,
+        "x": 650,
+        "y": 120,
         "wires": [
             [],
             []
         ]
-    },
-    {
-        "id": "d6d24deb8f0b07c3",
-        "type": "debug",
-        "z": "30eabd99172917aa",
-        "name": "",
-        "active": false,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 570,
-        "y": 280,
-        "wires": []
     },
     {
         "id": "e96cb405f5725aab",
@@ -336,8 +214,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 420,
-        "y": 360,
+        "x": 460,
+        "y": 80,
         "wires": [
             [
                 "0e1bfd37d59c32fa"
@@ -358,11 +236,64 @@
         "server": "fcac8d51.7bff8",
         "emptyMsgOnFail": false,
         "keepMsgProperties": false,
-        "x": 620,
-        "y": 360,
+        "x": 660,
+        "y": 80,
         "wires": [
             [],
             []
+        ]
+    },
+    {
+        "id": "af9784e785cce196",
+        "type": "PID control",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "target": "9.333",
+        "kp": "0.735",
+        "ki": "0.255",
+        "kd": "0.628",
+        "intervalTime": "1",
+        "x": 110,
+        "y": 260,
+        "wires": [
+            [
+                "a20a59ad0bba46c9"
+            ]
+        ]
+    },
+    {
+        "id": "a20a59ad0bba46c9",
+        "type": "atuador",
+        "z": "30eabd99172917aa",
+        "name": "Válvula",
+        "inputMin": "4",
+        "inputMax": "20",
+        "outputMin": 0,
+        "outputMax": "8",
+        "x": 320,
+        "y": 260,
+        "wires": [
+            [
+                "d1eabf4b7cc34ec3",
+                "7b4460f816a46442"
+            ]
+        ]
+    },
+    {
+        "id": "ecead97328f86368",
+        "type": "sensor",
+        "z": "30eabd99172917aa",
+        "name": "",
+        "inputMin": 0,
+        "inputMax": "12",
+        "outputMin": "4",
+        "outputMax": "20",
+        "x": 330,
+        "y": 420,
+        "wires": [
+            [
+                "af9784e785cce196"
+            ]
         ]
     },
     {
@@ -398,7 +329,7 @@
         "id": "6333ed6a.3722a4",
         "type": "modbus-server",
         "z": "dd13224eac8a9289",
-        "name": "Note-Modbus",
+        "name": "Modbus Server",
         "logEnabled": false,
         "hostname": "virtuallab",
         "serverPort": "502",
