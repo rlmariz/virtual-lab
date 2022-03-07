@@ -12,7 +12,9 @@
   "node-red": {
     "nodes": {
       "sensor": "sensor.js",
-      "tanque": "tanque.js"
+      "tanque": "tanque.js",
+      "pidcontrol": "pidcontrol.js",
+      "atuador": "atuador.js"
     }
   },
   "dependencies": {

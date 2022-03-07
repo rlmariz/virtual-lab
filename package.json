@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "jsmodbus": "^4.0.6",
+    "node-pid-controller": "^1.0.1",
     "underscore": "^1.13.2"
   }
 }
