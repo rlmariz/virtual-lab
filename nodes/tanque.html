@@ -1,17 +1,57 @@
 <script type="text/html" data-template-name="tanque">
+
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <label for="node-input-name" style="width:120px"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name" style="width:60%;">
     </div>  
-    
-    <div class="form-row node-input-property-container-row">
-        <ol id="node-input-property-container"></ol>
+
+    <div class="form-row">
+        <label for="node-input-area" style="width:120px;"><font size=+1>Area<sub>tank</sub></font></label>
+        <input type="number" id="node-input-area" placeholder="Area of tank" style="width:60%;">
     </div>
 
-    <div>
-        <label for="node-input-flow">Flow</label>
-        <textarea id="node-input-flow" rows="10" cols="50"></textarea>
+    <div class="form-row">
+        <label for="node-input-valveK" style="width:120px;"><font size=+1>K<sub>valve</sub></font></label>
+        <input type="number" id="node-input-valveK" placeholder="Constant K of valve" style="width:60%;">
     </div>
+
+    <div class="form-row">
+        <label for="node-input-valveOpen" style="width:120px;"><font size=+1>Valve<sub>opening</sub></font></label>
+        <input type="number" id="node-input-valveOpen" placeholder="Start opening value of valve [0-100]" style="width:60%;">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-startInputFlow" style="width:120px;"><font size=+1>Input<sub>flow</sub></font></label>
+        <input type="number" id="node-input-startInputFlow" placeholder="Start input flow" style="width:60%;">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-startOutputFlow" style="width:120px;"><font size=+1>Output<sub>flow</sub></font></label>
+        <input type="number" id="node-input-startOutputFlow" placeholder="Start output flow" style="width:60%;">
+    </div>    
+
+    <div class="form-row">
+        <label for="node-input-startLevel" style="width:120px;"><font size=+1>Level<sub>tank</sub></font></label>
+        <input type="number" id="node-input-startLevel" placeholder="Start level of tank" style="width:60%;">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-integrationInterval" style="width:120px;"><font size=+1>Interval<sub>int</sub></font></label>
+        <input type="text" id="node-input-integrationInterval" placeholder="Ingration interval" style="width:60%;">
+    </div>    
+
+    <div class="form-row">
+        <label for="node-input-intervalUpdate" style="width:120px;"><font size=+1>Interval<sub>update</sub></font></label>
+        <input type="number" id="node-input-intervalUpdate" placeholder="interval update output ms" style="width:60%;">
+    </div>        
+    
+    <div class="form-row">
+        <label for="node-input-modbusHost" style="width:120px;"><font size=+1>Modbus</font></label>
+        <input type="text" id="node-input-modbusHost" placeholder="Host ip/name" style="width:40%;">
+        <input type="number" id="node-input-modbusPort" placeholder="Port" style="width:8%;">
+        <input type="number" id="node-input-modbusRegister" placeholder="Register" style="width:11%;">
+    </div>            
+    
 </script>
 
 <script type="text/html" data-help-name="sensor">
@@ -23,7 +63,17 @@
         category: 'virtual_lab',
         defaults: {
             name: {value:""},
-            flow: {value:""}
+            valveK: {value:1,required:true,validate:RED.validators.number()},
+            valveOpen: {value:100,required:true,validate:RED.validators.number()},
+            area: {value:0,required:true,validate:RED.validators.number()},
+            startInputFlow: {value:"",required:true,validate:RED.validators.number()},
+            startOutputFlow: {value:"",required:true,validate:RED.validators.number()},
+            startLevel: {value:"",required:true,validate:RED.validators.number()},
+            modbusHost: {value:"",required:false},
+            modbusPort: {value:"502",required:true,validate:RED.validators.number()},
+            modbusRegister: {value:"",required:true,validate:RED.validators.number()},
+            integrationInterval: {value:"0.2",required:true,validate:RED.validators.number()},
+            intervalUpdate: {value:"1000",required:true,validate:RED.validators.number()}
         },
         inputs:1,
         outputs:2,
