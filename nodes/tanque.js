@@ -54,6 +54,7 @@ module.exports = function (RED) {
                 node.socket = new net.Socket();
 
                 node.socket.on('error', function (socket) {
+                    node.modbusConnected = false;
                     node.error(socket);
                 });
 
@@ -85,7 +86,6 @@ module.exports = function (RED) {
             if (node.socket !== null && node.modbusConnected) {
                 node.client.readHoldingRegisters(12, 1).then(function (resp) {
                     node.valveOpen = resp.response._body.valuesAsArray[0];
-                    console.log(node.valveOpen);
                 }).catch(function () {
                     node.warn(require('util').inspect(arguments, { depth: null }))
                 })
