@@ -7,10 +7,14 @@ output "public_dns" {
 }
 
 output "ssh_connection" {
-  value = "ssh -i aws_key ec2-user@${aws_instance.server.public_dns}" 
+  value = "ssh -i aws_key ec2-user@${aws_instance.server.public_dns}"
 }
 
 output "nodered" {
-  value = "${aws_instance.server.public_dns}:1880" 
+  value = "${aws_instance.server.public_dns}:1880"
+}
+
+output "scada-lts" {
+  value = "${aws_instance.server.public_dns}:8080/Scada-LTS"
 }
 

@@ -40,6 +40,17 @@ resource "aws_security_group" "allow_ssh" {
       security_groups  = []
       self             = false
       to_port          = 1880
+    },
+    {
+      cidr_blocks      = ["0.0.0.0/0", ]
+      description      = "scada-lts"
+      from_port        = 8080
+      ipv6_cidr_blocks = []
+      prefix_list_ids  = []
+      protocol         = "tcp"
+      security_groups  = []
+      self             = false
+      to_port          = 8080
     }
   ]
 }
