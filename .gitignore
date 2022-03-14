@@ -159,3 +159,4 @@ temp/
 **/node-red-data/.config*.json
 terraform/aws/aws.key
 terraform/aws/aws.key.pub
+terraform/aws/aws_credentials.txt
