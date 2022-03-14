@@ -56,6 +56,6 @@ resource "aws_security_group" "allow_ssh" {
 }
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "aws_key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDIbPM13ce5rcI93kYObeMM0i06pMzWq1vqMohJbjwABzadD225wu9W2r50ZWcvw/DZjRQALSnrezBpxwKnsXoHnwPrDqQc2P69HviGuo+8VUGlRq+w3zu+sy0gzScDpnH2GpGrjGM7NCW1XpDZzeXR5my6JBAndmOuKPHYlUfmOA4rvvrek73RFgy9+Cak0U4chjynblS/ARYq76oARHycukxkA6tWAce2ap4W7FMIgVZcaTWnND7ONCuRrj6j//duo8QdhTs8w0Olv6JkaNHl3tu/kbs8Lz7WNPGvj0ZAtqTmQlzcSB8Q52MQO+Kvu649fFT40nqCdvbxgcQB3VQl ricardo@Ricardo-Note"
+  key_name   = "aws_virtuallab_key"
+  public_key = file("./aws.key.pub")
 }

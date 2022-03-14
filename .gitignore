@@ -156,3 +156,6 @@ dist
 scadalts-data/
 temp/
 *.backup
+**/node-red-data/.config*.json
+terraform/aws/aws.key
+terraform/aws/aws.key.pub

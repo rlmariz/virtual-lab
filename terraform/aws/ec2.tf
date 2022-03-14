@@ -13,7 +13,7 @@ data "aws_ami" "amazon_linux_2" {
 resource "aws_instance" "server" {
   ami                    = data.aws_ami.amazon_linux_2.id
   instance_type          = var.instance_type
-  key_name               = "aws_key"
+  key_name               = "aws_virtuallab_key"
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
 
   tags = {
@@ -68,7 +68,7 @@ resource "aws_instance" "server" {
     type        = "ssh"
     host        = self.public_ip
     user        = "ec2-user"
-    private_key = file("./aws_key")
+    private_key = file("./aws.key")
     timeout     = "4m"
   }
 
