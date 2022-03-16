@@ -7,6 +7,7 @@ module.exports = function(RED) {
         this.inputMax = n.inputMax * 1.0;
         this.outputMin = n.outputMin * 1.0;
         this.outputMax = n.outputMax * 1.0;
+        this.inputValueStart = n.inputValueStart * 1.0;
 
         var node = this;
 
@@ -15,12 +16,12 @@ module.exports = function(RED) {
         node.on('input', function(msg) {
             let valueInput = msg.payload;
 
-            if(valueInput < this.inputMin){
-                valueInput = this.inputMin;
+            if(valueInput < node.inputMin){
+                valueInput = node.inputMin;
             }
 
-            if(valueInput > this.inputMax){
-                valueInput = this.inputMax;
+            if(valueInput > node.inputMax){
+                valueInput = node.inputMax;
             }
 
             //faz a interpolação linear
@@ -30,6 +31,9 @@ module.exports = function(RED) {
 
             node.status({fill:"blue",shape:"dot",text:"out:" + valueOutput});
         });
+
+        node.emit("input", { payload: node.inputValueStart });
+        
     }
 
     RED.nodes.registerType("atuador", AtuadorNode);

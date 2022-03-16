@@ -21,14 +21,9 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-startInputFlow" style="width:120px;"><font size=+1>Input<sub>flow</sub></font></label>
-        <input type="number" id="node-input-startInputFlow" placeholder="Start input flow" style="width:60%;">
+        <label for="node-input-maxLevel" style="width:120px;"><font size=+1>Max<sub>level</sub></font></label>
+        <input type="number" id="node-input-maxLevel" placeholder="Max level of tank" style="width:60%;">
     </div>
-
-    <div class="form-row">
-        <label for="node-input-startOutputFlow" style="width:120px;"><font size=+1>Output<sub>flow</sub></font></label>
-        <input type="number" id="node-input-startOutputFlow" placeholder="Start output flow" style="width:60%;">
-    </div>    
 
     <div class="form-row">
         <label for="node-input-startLevel" style="width:120px;"><font size=+1>Level<sub>tank</sub></font></label>
@@ -63,11 +58,10 @@
         category: 'virtual_lab',
         defaults: {
             name: {value:""},
-            valveK: {value:1,required:true,validate:RED.validators.number()},
+            valveK: {value:1,required:true},
             valveOpen: {value:100,required:true,validate:RED.validators.number()},
             area: {value:0,required:true,validate:RED.validators.number()},
-            startInputFlow: {value:"",required:true,validate:RED.validators.number()},
-            startOutputFlow: {value:"",required:true,validate:RED.validators.number()},
+            maxLevel: {value:"",required:true,validate:RED.validators.number()},
             startLevel: {value:"",required:true,validate:RED.validators.number()},
             modbusHost: {value:"",required:false},
             modbusPort: {value:"502",required:true,validate:RED.validators.number()},
@@ -76,7 +70,7 @@
             intervalUpdate: {value:"1000",required:true,validate:RED.validators.number()}
         },
         inputs:1,
-        outputs:2,
+        outputs:3,
         color: '#a6bbcf',        
         icon: "tanque.png",
         label: function() {

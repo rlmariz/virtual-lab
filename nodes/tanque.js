@@ -3,11 +3,13 @@ module.exports = function (RED) {
     function TanqueNode(n) {
         RED.nodes.createNode(this, n);
 
-        this.timeOut_id = null;
+        this.interval_id = null;
+        this.intervalModbus_id = null;
         this.socket = null;
         this.client = null;
 
         this.area = n.area * 1.0;
+        this.maxLevel = n.maxLevel * 1.0;
         this.valveK = n.valveK * 1.0;
         this.valveOpen = n.valveOpen * 1.0;
         this.integrationInterval = n.integrationInterval * 1.0;
@@ -17,14 +19,12 @@ module.exports = function (RED) {
         this.intervalUpdate = n.intervalUpdate * 1.0;
 
         this.startLevel = n.startLevel * 1.0;
-        this.startInputFlow = n.startInputFlow * 1.0;
-        this.startOutputFlow = n.startOutputFlow * 1.0;        
 
         this.level = this.startLevel;
-        this.inputFlow = this.startInputFlow;
-        this.outputFlow = this.startOutputFlow;
+        this.inputFlow = 0.0;
+        this.outputFlow = 0.0;
 
-        var node = this;        
+        var node = this;
 
         // create a tcp modbus client
         const Modbus = require('jsmodbus')
@@ -34,17 +34,40 @@ module.exports = function (RED) {
             node.inputFlow = msg.payload;
         });
 
+        node.on("close", function () {
+            // Called when the node is shutdown - eg on redeploy.
+            // Allows ports to be closed, connections dropped etc.
+            // eg: node.client.disconnect();
+            clearTimeout(node.interval_id);
+            clearTimeout(node.intervalModbus_id);
+            if (node.modbusConnected) {
+                node.socket.end();
+            }
+            delete node.client;
+            delete node.socket;
+        });
+
         node.loadProcess = function () {
-            node.timeOut_id = setTimeout(function () {
-                node.level = node.Tanque_rk(node.level, node.inputFlow, node.integrationInterval);
+            node.interval_id = setInterval(function () {
+                node.level = node.Tanque_rk(node.level, node.inputFlow, node.integrationInterval) || 0;
                 node.level = Math.round(node.level * 1000) / 1000;
+
+                if (node.level == 0) {
+                    node.outputFlow = 0;
+                }
+
+                if (node.level > node.maxLevel) {
+                    node.level = node.maxLevel;
+                    node.status({ fill: "red", shape: "dot", text: "full level:" + node.level });
+                } else {
+                    node.status({ fill: "blue", shape: "dot", text: "level:" + node.level });
+                }
+
                 var msg1 = { payload: node.level };
                 var msg2 = { payload: node.outputFlow };
-                node.send([msg1, msg2]);
+                var msg3 = { payload: node.inputFlow };
+                node.send([msg1, msg2, msg3]);
 
-                node.status({fill:"blue",shape:"dot",text:"level:" + node.level});
-
-                node.loadProcess();
             }, node.intervalUpdate);
         }
 
@@ -55,15 +78,27 @@ module.exports = function (RED) {
 
                 node.socket.on('error', function (socket) {
                     node.modbusConnected = false;
-                    node.error(socket);
                 });
 
                 node.socket.on("connect", function (socket) {
-                    node.modbusConnected = true;
                 });
 
                 node.socket.on("close", err => {
                     node.modbusConnected = false;
+                });
+
+                node.socket.on("end", err => {
+                    node.modbusConnected = false;
+                });
+
+                node.socket.on("ready", err => {
+                    node.client.writeSingleRegister(node.modbusRegister, Math.trunc(node.valveOpen))
+                        .then(function (resp) {
+                            node.modbusConnected = true;
+                        }).catch(function () {
+                            node.error(arguments);
+                        })
+
                 });
             }
 
@@ -83,16 +118,16 @@ module.exports = function (RED) {
                 }
             }
 
-            if (node.socket !== null && node.modbusConnected) {
-                node.client.readHoldingRegisters(12, 1).then(function (resp) {
-                    node.valveOpen = resp.response._body.valuesAsArray[0];
-                }).catch(function () {
-                    node.warn(require('util').inspect(arguments, { depth: null }))
-                })
-            }
+            node.intervalModbus_id = setInterval(function () {
 
-            setTimeout(() => {
-                node.loadFromModbus();
+                if (node.modbusConnected) {
+                    node.client.readHoldingRegisters(node.modbusRegister, 1).then(function (resp) {
+                        node.valveOpen = resp.response._body.valuesAsArray[0];
+                    }).catch(function () {
+                        node.warn(require('util').inspect(arguments, { depth: null }))
+                    })
+                }
+
             }, 500);
 
         }
@@ -136,9 +171,10 @@ module.exports = function (RED) {
             return xd;
         }
 
-        if(node.modbusHost !== "" && node.modbusPort !== null && node.modbusPort > 0 && node.modbusRegister !== null && node.modbusRegister > 0){
+        if (node.modbusHost !== "" && node.modbusPort !== null && node.modbusPort > 0 && node.modbusRegister !== null && node.modbusRegister > 0) {
             node.loadFromModbus();
         }
+
         node.loadProcess();
     }
 

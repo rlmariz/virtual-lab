@@ -15,12 +15,12 @@ module.exports = function(RED) {
         node.on('input', function(msg) {
             let valueInput = msg.payload;
 
-            if(valueInput < this.inputMin){
-                valueInput = this.inputMin;
+            if(valueInput < node.inputMin){
+                valueInput = node.inputMin;
             }
 
-            if(valueInput > this.inputMax){
-                valueInput = this.inputMax;
+            if(valueInput > node.inputMax){
+                valueInput = node.inputMax;
             }
 
             //faz a interpolação linear
