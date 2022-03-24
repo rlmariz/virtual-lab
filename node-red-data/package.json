@@ -5,7 +5,6 @@
     "private": true,
     "dependencies": {
         "node-pid-controller": "^1.0.1",
-        "node-red-contrib-float": "~1.0.3",
         "node-red-contrib-virtuallab": "file:../node-red-contrib-virtual-lab"
     }
 }
