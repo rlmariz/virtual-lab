@@ -1,0 +1,1 @@
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/rlmariz/virtual-lab-deploy/main/virtuallab-deploy.ps1 -OutFile .\virtuallab-deploy.ps1;.\virtuallab-deploy.ps1
