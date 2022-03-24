@@ -5,7 +5,7 @@ services:
         image: virtual-lab
         environment:
             - TZ=America/Sao_Paulo
-            - NODE_RED_ENABLE_SAFE_MODE=true # setting to true starts Node-RED in safe (not running) mode
+            # - NODE_RED_ENABLE_SAFE_MODE=true # setting to true starts Node-RED in safe (not running) mode
         ports:
             - "1880:1880"
             - "502:502"            
@@ -53,6 +53,8 @@ services:
 
     phpmyadmin:
         container_name: scadalts_phpmyadmin
+        hostname: scadalts_phpmyadmin
+        restart: unless-stopped
         depends_on:
             - scadalts
         image: phpmyadmin/phpmyadmin
