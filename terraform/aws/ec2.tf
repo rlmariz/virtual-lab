@@ -56,12 +56,20 @@ resource "aws_instance" "server" {
       "sudo chown -R 1000:1000 ./node-red-data",
       "sudo setfacl --modify user:$USER:rw /var/run/docker.sock",
       "docker-compose up -d",
-      "sleep 45s",
-      "sudo mv all-databases.sql ./scadalts-data",
-      "docker exec -i mysql sh -c 'exec mysql -uroot -proot -f < /var/lib/mysql/all-databases.sql'",
       "docker stop scadalts",
+      "sleep 30s",
       "docker start scadalts",
-      "docker cp ./uploads/5.png scadalts:/usr/local/tomcat/webapps/Scada-LTS/uploads/5.png"
+      "sleep 30s",
+      "curl -sSf http://127.0.0.1:8080/Scada-LTS > /dev/null",      
+      "sudo mv *.sql ./scadalts-data",
+      "docker exec -it mysql sh -c 'exec mysql -uroot -proot -f scadalts < /var/lib/mysql/scadalts_table_dataSources.sql'",
+      "docker exec -it mysql sh -c 'exec mysql -uroot -proot -f scadalts < /var/lib/mysql/scadalts_table_dataPoints.sql'",
+      "docker exec -it mysql sh -c 'exec mysql -uroot -proot -f scadalts < /var/lib/mysql/scadalts_table_watchLists.sql'",
+      "docker exec -it mysql sh -c 'exec mysql -uroot -proot -f scadalts < /var/lib/mysql/scadalts_table_watchListPoints.sql'",
+      "docker exec -it mysql sh -c 'exec mysql -uroot -proot -f scadalts < /var/lib/mysql/scadalts_table_mangoViews.sql'",      
+      "docker cp ./uploads/5.png scadalts:/usr/local/tomcat/webapps/Scada-LTS/uploads/5.png",
+      "docker stop scadalts",
+      "docker start scadalts"
     ]
   }
   connection {

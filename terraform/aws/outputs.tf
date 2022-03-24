@@ -7,7 +7,7 @@ output "public_dns" {
 }
 
 output "ssh_connection" {
-  value = "ssh -i aws_key ec2-user@${aws_instance.server.public_dns}"
+  value = "ssh -i aws.key ec2-user@${aws_instance.server.public_dns}"
 }
 
 output "nodered" {
