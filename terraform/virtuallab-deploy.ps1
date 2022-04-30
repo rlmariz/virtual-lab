@@ -23,7 +23,9 @@ Get-DownloadGitFile -FileName backend.tf
 Get-DownloadGitFile -FileName ec2.tf
 Get-DownloadGitFile -FileName outputs.tf
 Get-DownloadGitFile -FileName security.tf
-Get-DownloadGitFile -FileName variables.tf
+if (!(Test-Path .\variables.tf)) {
+    Get-DownloadGitFile -FileName variables.tf
+}
 
 function Get-Menu {
 
