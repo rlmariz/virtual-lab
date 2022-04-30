@@ -1,0 +1,207 @@
+\textbf{Implantação em Amazon Web Services (AWS) utilizado recurso EC2
+de planta virtual utilizando node-red e supervisório utilizando
+Scada-LTS.}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Pré-requisitos
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    Ter conta no Amazon Web Services (AWS): \url{https://aws.amazon.com}
+  \item
+    Conhecimento básico em informática.
+  \end{enumerate}
+\item
+  Fazer download do arquivo do arquivo e descompactar. Vai ser criada a
+  pasta virtuallab com dois arquivos, todos os arquivos devem ser salvos
+  e executados dentro dessa pasta. Abaixo segue o link de download.
+\end{enumerate}
+
+\url{https://tinyurl.com/virtuallabdeploy}
+
+\includegraphics[width=6.88456in,height=2.54135in]{media/image1.png}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Criar conta de acesso que será utilizado pelo terraform no AWS para
+  criação da infraestrutura.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    Acesse o console da AWS e faça o login com sua conta e pesquise pelo
+    produto IAM (Identity and Access Management).
+  \end{enumerate}
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=3.8231in,height=2.15117in]{media/image2.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\item
+  Iremos criar um usuário para que o terraform possa interagir com a
+  AWS, clique em USERS e em seguida em ADD USER.
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=3.86767in,height=1.86652in]{media/image3.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Definir detalhes do usuário.
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=3.86158in,height=1.9267in]{media/image4.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\item
+  Adicione a política AmazonEC2FullAccess ao usuário, o que dará
+  permissão total ao usuário apenas a recursos da EC2, e clique em Next.
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=4.27566in,height=2.05236in]{media/image5.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  Tags são utilizadas para adicionar informações relevantes ao usuario,
+  clique em Next.
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=4.28533in,height=2.12301in]{media/image6.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\item
+  Verifique os dados e clique em Create user.
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=5.36583in,height=2.79271in]{media/image7.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\item
+  Clique em show e copie o Access key ID e Secret access key
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=4.76143in,height=2.5694in]{media/image8.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{7}
+\item
+  O usuário criado e chave de acesso não devem ser compartilhados, uma
+  vez que quem tiver acesso a estes dados terá controle sobre os
+  recursos adicionados como política, por questões de segurança este
+  usuário não existe mais em minha conta.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\item
+  Editar arquivo \emph{\textbf{aws\_credentials.txt}} e adicionar a
+  chave de acesso e a chave secreta substituindo os valores
+  \textless access\_key\textgreater{} e
+  \textless secret\_access\_key\textgreater.
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=3.63613in,height=2.25163in]{media/image9.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  Acessar o site e gerar par de chaves rsa que será utilizado para
+  conexão ssh.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    Acesso o website
+    \href{https://www.wpoven.com/tools/create-ssh-key}{https://www.wpoven.com/tools/create-ssh-key\#}
+  \item
+    Configure o type como rsa, length 2048, password deixe em branco e
+    clique em create key.
+  \end{enumerate}
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=2.65071in,height=0.68917in]{media/image10.png}
+\end{quote}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Fazer download do \emph{\textbf{Private Key}} e salvar arquivo com
+  nome \emph{\textbf{aws.key}}.
+\item
+  Fazer download do \emph{\textbf{Public Key}} e salvar arquivo com nome
+  \emph{\textbf{aws.pub.key}}.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\item
+  Clicar com botão direito do mouse do arquivo virtuallab.ps1 e
+  ``Executar com o PowerShell''
+\end{enumerate}
+
+\includegraphics[width=6.49919in,height=3.27042in]{media/image11.png}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\item
+  Vai ser exibido um menu com 3 opções:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    \textbf{Opção 1:} Vai subir a infraestrutura do virtuallab no aws, o
+    processo leva de 7 a 10 minutos para ser implementado e ao final
+    será exibido os endpoints para acesso ao supervisório, node-red e
+    caso necessário o comando para acesso via ssh. Veja na imagem abaixo
+    um exemplo dos endereços de acesso.
+  \item
+    \textbf{Opção 2:} Vai desalocar todos os recostos que foram criados.
+    É muito importante desalocar os recursos após finalizar sua
+    utilização para não ter custos extras.
+  \item
+    \textbf{Opção 3:} Saí do menu
+  \end{enumerate}
+\end{enumerate}
+
+\begin{quote}
+\includegraphics[width=4.09755in,height=2.13936in]{media/image12.png}
+\end{quote}
