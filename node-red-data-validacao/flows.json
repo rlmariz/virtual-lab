@@ -73,9 +73,9 @@
         "z": "30eabd99172917aa",
         "name": "Tanque",
         "valveK": "0.5",
-        "valveOpen": "100",
+        "valveOpen": "50",
         "area": "1",
-        "maxLevel": "100",
+        "maxLevel": "8",
         "startLevel": "0",
         "modbusHost": "host.docker.internal",
         "modbusPort": "502",
@@ -86,9 +86,7 @@
         "y": 300,
         "wires": [
             [
-                "6cb0c3d4b6bd8e8d",
-                "ecead97328f86368",
-                "4a015a5fdb518fc0"
+                "6cb0c3d4b6bd8e8d"
             ],
             [
                 "e96cb405f5725aab"
@@ -220,12 +218,11 @@
         "id": "af9784e785cce196",
         "type": "PID control",
         "z": "30eabd99172917aa",
-        "d": true,
         "name": "",
         "target": "4",
-        "kp": "0.20",
-        "ki": "0.04",
-        "kd": "0.08",
+        "kp": "0.258923554386915",
+        "ki": "0.0454525240461584",
+        "kd": "0.191205826928076",
         "intervalTime": "1",
         "x": 110,
         "y": 300,
@@ -241,10 +238,10 @@
         "z": "30eabd99172917aa",
         "name": "Válvula",
         "inputMin": "0",
-        "inputMax": "1",
+        "inputMax": "2",
         "outputMin": 0,
-        "outputMax": "1",
-        "inputValueStart": "1",
+        "outputMax": "2",
+        "inputValueStart": "0",
         "x": 320,
         "y": 300,
         "wires": [
@@ -269,31 +266,6 @@
             [
                 "af9784e785cce196",
                 "d72a4fe3cce0ecc4"
-            ]
-        ]
-    },
-    {
-        "id": "9fd23f328890f269",
-        "type": "inject",
-        "z": "30eabd99172917aa",
-        "name": "Degrau",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": "0.5",
-        "topic": "",
-        "payload": "2",
-        "payloadType": "num",
-        "x": 110,
-        "y": 220,
-        "wires": [
-            [
-                "a20a59ad0bba46c9"
             ]
         ]
     },
@@ -346,7 +318,9 @@
         "x": 720,
         "y": 300,
         "wires": [
-            []
+            [
+                "ecead97328f86368"
+            ]
         ]
     },
     {
@@ -379,7 +353,7 @@
         "type": "function",
         "z": "30eabd99172917aa",
         "name": "Tempo",
-        "func": "var Simulacao = flow.get(\"Simulacao\");\n\nflow.set(\"Simulacao\",  flow.get(\"Simulacao\") + 1);\n\nif (Simulacao == 0){\n    //node.warn(\"Inicio Simulação\");\n}\n\nif (Simulacao % 10 == 0 && Simulacao > 1) {\n    //node.warn(\"Simulação:\" + Simulacao + \"s\");\n}\n\nif (Simulacao >= 40 && flow.get(\"TempoDisturbio\") == 0){\n    flow.set(\"TempoDisturbio\", 1);\n    flow.set(\"Disturbio\",  -0.5);\n    //node.warn(\"Disturbio 1\");\n}\n\nif (Simulacao >= 80 && flow.get(\"TempoDisturbio\") == 1){\n    flow.set(\"TempoDisturbio\", 2);\n    flow.set(\"Disturbio\",  0);\n    //node.warn(\"Disturbio 2\");\n}",
+        "func": "var Simulacao = flow.get(\"Simulacao\");\n\nflow.set(\"Simulacao\",  flow.get(\"Simulacao\") + 1);\n\nif (Simulacao == 0){\n    node.warn(\"Inicio Simulação\");\n}\n\nif (Simulacao % 10 == 0 && Simulacao > 1) {\n    node.warn(\"Simulação:\" + Simulacao + \"s\");\n}\n\nif (Simulacao >= 40 && flow.get(\"TempoDisturbio\") == 0){\n    flow.set(\"TempoDisturbio\", 1);\n    flow.set(\"Disturbio\",  -0.5);\n    node.warn(\"Disturbio 1\");\n}\n\nif (Simulacao >= 80 && flow.get(\"TempoDisturbio\") == 1){\n    flow.set(\"TempoDisturbio\", 2);\n    flow.set(\"Disturbio\",  0);\n    node.warn(\"Disturbio 2\");\n}",
         "outputs": 1,
         "noerr": 0,
         "initialize": "// Code added here will be run once\n// whenever the node is started.\nflow.set(\"Simulacao\",  0);\nflow.set(\"TempoDisturbio\", 0);",
@@ -390,38 +364,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "f7188263d30a6b43",
-        "type": "debug",
-        "z": "30eabd99172917aa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 530,
-        "y": 640,
-        "wires": []
-    },
-    {
-        "id": "4a015a5fdb518fc0",
-        "type": "debug",
-        "z": "30eabd99172917aa",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 690,
-        "y": 360,
-        "wires": []
     },
     {
         "id": "9e3cd65f9ab46e5e",
