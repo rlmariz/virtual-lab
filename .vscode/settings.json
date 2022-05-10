@@ -4,6 +4,8 @@
     ".node-red\\.npm": true,
     ".vscode": true,
     ".node-red": true,
-    "nodes\\node_modules": true
+    "nodes\\node_modules": true,
+    "temp": true,
+    "scadalts-data": true
   }
 }
