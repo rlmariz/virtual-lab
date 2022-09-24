@@ -8,11 +8,11 @@ s = sympy.symbols('s')
 t = sympy.symbols('t', positive=True)
 #w = sympy.symbols('w', real = True)
 
-expression1 = 8/(8*s**2+s)
-print(expression1)
-il = sympy.inverse_laplace_transform(expression1, s, t)
-print(il)
-print(il.subs(t, 1).evalf())
+# expression1 = 8/(8*s**2+s)
+# print(expression1)
+# il = sympy.inverse_laplace_transform(expression1, s, t)
+# print(il)
+# print(il.subs(t, 1).evalf())
 
 
 # from sympy.parsing.sympy_parser import parse_expr, standard_transformations, implicit_multiplication_application, convert_xor
@@ -22,17 +22,17 @@ print(il.subs(t, 1).evalf())
 # il = sympy.inverse_laplace_transform(expr, s, t)
 # print(il.subs(t, 10).evalf())
 
-expression2 = sympy.parse_expr('8/(8*s**2+s)')
+expression2 = sympy.parse_expr('1/s-(1/(s+2)**2)+3/(s**2+9)')
 print(expression2)
 il = sympy.inverse_laplace_transform(expression2, s, t)
 print(il)
 print(il.subs(t, 1).evalf())
 
-assert str(expression1) == str(expression2)
+# assert str(expression1) == str(expression2)
 
-print(expression1.args)
 print(expression2.args)
-assert expression1 == expression1
+# print(expression2.args)
+# assert expression1 == expression1
 # s, t = sympy.symbols('s, t', positive=True)
 # w = sympy.symbols('w', real = True)
 # expression = sympy.parse_expr('8/(8*s**2+s)')
