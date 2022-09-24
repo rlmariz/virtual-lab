@@ -1,0 +1,24 @@
+nodemon --exec "python -v" ./python-service-2.py
+
+export PATH=/home/rlmariz/.local/bin:$PATH
+
+python3 python-service-2.py
+
+pip3 install python-socketio
+pip3 install sympy
+
+gunicorn -threads 50 app:app
+
+pip3 uninstall gunicorn
+
+pip3 install gunicorn
+
+nodemon --exec "python3" python-service-2.py
+
+python3 python-service-2.py
+
+npm install nodemon
+
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install npm

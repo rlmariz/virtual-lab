@@ -160,3 +160,4 @@ temp/
 terraform/aws/aws.key
 terraform/aws/aws.key.pub
 terraform/aws/aws_credentials.txt
+websocket-server/__pycache__/
