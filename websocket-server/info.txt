@@ -22,3 +22,7 @@ npm install nodemon
 sudo apt update && sudo apt upgrade -y
 
 sudo apt install npm
+
+sed -i -e 's/\r$//' meu_script.sh
+
+docker run --rm  testing:node-red-build
