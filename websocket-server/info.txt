@@ -26,3 +26,37 @@ sudo apt install npm
 sed -i -e 's/\r$//' meu_script.sh
 
 docker run --rm  testing:node-red-build
+
+nodemon --exec python3 ./websocket-server.py
+
+clear
+docker run \
+    --rm \
+    -e TZ=America/Sao_Paulo \
+    -p 1880:1880 \
+    -p 2812:2812 \
+    -v .:/home/node-red/app \
+    --name virtual-lab-dev \
+    rlmariz/virtual-lab:dev
+
+-v websocket-server:/usr/src/websocket-server \
+-v Docker/scripts/entrypoint_dev.sh:/usr/src/node-red/entrypoint_dev.sh \
+--entrypoint entrypoint-dev.sh \        
+--entrypoint ./Docker/scripts/entrypoint-dev.sh \
+
+
+nodemon --exec "python3 -v" ./websocket-server.py
+
+cd /usr/local/lib/node_modules
+
+npm i yalc -g
+
+yalc publish
+
+yalc add node-red-contrib-virtuallab
+
+yalc update node-red-contrib-virtuallab
+
+yalc publish /usr/src/nodes
+
+https://www.npmjs.com/package/yalc

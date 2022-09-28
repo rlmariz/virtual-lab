@@ -1,0 +1,10 @@
+{
+    "name": "node-red-project",
+    "description": "A Node-RED Project",
+    "version": "0.0.1",
+    "private": false,
+    "dependencies": {
+        "node-pid-controller": "^1.0.1",
+        "node-red-contrib-virtuallab": "file:../usr/src/nodes"
+    }
+}

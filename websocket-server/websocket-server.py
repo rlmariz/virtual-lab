@@ -24,7 +24,7 @@ app = web.Application()
 sio.attach(app)
 
 async def index(request):
-    """Serve the client-side application."""
+    """Serve the client-side application.."""
     print("index.html")
     with open('index.html') as f:
         return web.Response(text=f.read(), content_type='text/html')
