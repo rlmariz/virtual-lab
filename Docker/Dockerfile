@@ -10,7 +10,7 @@ USER root
 
 RUN npm install node-pid-controller
 RUN npm install nodemon -g
-RUN npm i yalc -g
+#RUN npm i yalc -g
 
 # WORKDIR /home/node/app
 
