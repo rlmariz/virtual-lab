@@ -5,6 +5,11 @@
     "private": false,
     "dependencies": {
         "node-pid-controller": "^1.0.1",
-        "node-red-contrib-virtuallab": "file:../usr/src/nodes"
+        "node-red-contrib-open": "~1.0.0",
+        "node-red-contrib-virtuallab": "file:../usr/src/nodes",
+        "node-red-dashboard": "~3.2.0",
+        "node-red-node-ui-iframe": "~0.2.1",
+        "open": "^8.4.0",
+        "socket.io-client": "^4.5.2"
     }
 }

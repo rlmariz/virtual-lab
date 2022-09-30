@@ -50,6 +50,10 @@ async def connect(sid, environ):
         session['username'] = username
     await sio.emit('user_joined', username)
 
+    if username == 'ui':
+        print(sid, 'ui')
+        sio.enter_room(sid, 'ui')
+
     client_count += 1
     print(sid, 'connected')
     # sio.start_background_task(task, sid)
@@ -111,6 +115,13 @@ async def tfinput(sid, data):
     async with sio.session(sid) as session:
         session[data['name']]['t'].append(data['t'])
         session[data['name']]['y'].append(data['y'])
+
+    # sio.emit('plot', {'t': 1, 'y': 0}, to='ui', skip_sid=sid)
+
+    result = json.loads(json.dumps(data, default=lambda x: eval(str(x))));
+
+    await sio.emit('plot', result, to='ui')
+
     return json.loads(json.dumps(data, default=lambda x: eval(str(x))))
 
 @sio.event
@@ -139,6 +150,8 @@ async def tfplot(sid, data):
     file_name = f'./static/{tf_name}.png';
     
     plt.savefig(file_name)    
+
+    #plt.show()
 
     return {'file_name': file_name}
 

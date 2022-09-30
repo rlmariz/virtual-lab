@@ -7,6 +7,32 @@
         "info": ""
     },
     {
+        "id": "22c25003768ff6a0",
+        "type": "tab",
+        "label": "Flow 7",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d6607ab5.ccd6e8",
+        "type": "ui_group",
+        "name": "IFrame00",
+        "tab": "eddb36be.1cf578",
+        "order": 1,
+        "disp": true,
+        "width": "20",
+        "collapse": false
+    },
+    {
+        "id": "eddb36be.1cf578",
+        "type": "ui_tab",
+        "name": "IFrame00",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
         "id": "3cc11d24.ff01a2",
         "type": "comment",
         "z": "f6f2187d.f17ca8",
@@ -70,8 +96,140 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 820,
+        "x": 800,
         "y": 260,
         "wires": []
+    },
+    {
+        "id": "a56e0b80.447068",
+        "type": "ui_iframe",
+        "z": "f6f2187d.f17ca8",
+        "group": "d6607ab5.ccd6e8",
+        "name": "",
+        "order": 0,
+        "width": "20",
+        "height": "13",
+        "url": "http://127.0.0.1:2812/static/tf-2.png",
+        "origin": "*",
+        "scale": "100",
+        "x": 530,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3a58f425.e5ae4c",
+        "type": "open",
+        "z": "22c25003768ff6a0",
+        "name": "",
+        "target": "",
+        "app": "",
+        "wait": false,
+        "urlencode": false,
+        "x": 570,
+        "y": 260,
+        "wires": [
+            [
+                "a018c630.e0c848"
+            ]
+        ]
+    },
+    {
+        "id": "26b5b81b.5db13",
+        "type": "inject",
+        "z": "22c25003768ff6a0",
+        "name": "Open google.com using default browser",
+        "props": [
+            {
+                "p": "target",
+                "v": "https://google.com",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 280,
+        "y": 260,
+        "wires": [
+            [
+                "3a58f425.e5ae4c"
+            ]
+        ]
+    },
+    {
+        "id": "a018c630.e0c848",
+        "type": "debug",
+        "z": "22c25003768ff6a0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "f3dcdb06.f800a",
+        "type": "inject",
+        "z": "22c25003768ff6a0",
+        "name": "Open image file",
+        "props": [
+            {
+                "p": "target",
+                "v": "/path/to/image.jpeg",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 360,
+        "y": 340,
+        "wires": [
+            [
+                "3a58f425.e5ae4c"
+            ]
+        ]
+    },
+    {
+        "id": "f55de952.472738",
+        "type": "inject",
+        "z": "22c25003768ff6a0",
+        "name": "Open google.com using Chrome",
+        "props": [
+            {
+                "p": "target",
+                "v": "https://google.com",
+                "vt": "str"
+            },
+            {
+                "p": "app",
+                "v": "google chrome",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 310,
+        "y": 300,
+        "wires": [
+            [
+                "3a58f425.e5ae4c"
+            ]
+        ]
     }
 ]

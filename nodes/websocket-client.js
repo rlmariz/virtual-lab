@@ -1,12 +1,13 @@
 // import { sio_create } from "./socket-io.js";
-const {sio_create} = require("./socket-io.js");
+const {sio_create} = require("../nodes/socket-io.js");
 
 async function run(tf) {
 
   console.log('**** Inicio ****** ');
 
-  //tf.func = tf.func.replaceAll('^', '**');
+  tf.func = tf.func.replaceAll('^', '**');
 
+  
   let sio = sio_create('http://127.0.0.1:2812', 'virtual-lab')
 
   while (!sio.connected) {
@@ -17,10 +18,6 @@ async function run(tf) {
   await sio.emit('tfset', tf, (result) => {
     console.log(result);
   });
-
-  await sio.emit('plot', tf, (result) => {
-    console.log(result);
-  });  
 
   for (let t = 0; t <= 60; t++) {
 
@@ -56,7 +53,7 @@ var tf1 = {
   func: '8/(8*s**2+s)'
 }
 
-run(tf1);
+// run(tf1);
 
 // var tf2 = {
 //   name: 'tf-2',
