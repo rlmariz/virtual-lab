@@ -9,10 +9,11 @@ $(document).ready(function () {
     $(".tab_content_container > .tab_content_active").removeClass("tab_content_active").fadeOut(200);
     $(this.rel).fadeIn(500).addClass("tab_content_active");
 
-    var nLi = document.createElement('li');
-    document.getElementsByTagName('ul')[0].appendChild(nLi);
-    // <li><a rel="#tabcontent1" class="tab active">TAB 1</a></li>
-
   });
+
+  var nLi = document.createElement('li');
+  document.getElementsByTagName('ul')[0].appendChild(nLi);
+  // <li><a rel="#tabcontent1" class="tab active">TAB 1</a></li>  
+  console.log("ready executado");
 
 });
