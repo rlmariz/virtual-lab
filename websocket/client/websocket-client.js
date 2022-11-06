@@ -3,7 +3,7 @@ const WebSocket = require('ws');
 
 var username = "";
 var appliedusername = "";
-var ws;
+//var ws;
 //document.getElementById("say_message").style.display = "none";
 //window.onload = load;
 
@@ -35,7 +35,6 @@ async function connection(socket, timeout = 10000) {
   }
 }
 
-
 function receiveMessage(msgdata) {
   if (username == "") {
     if (msgdata == appliedusername) {
@@ -57,13 +56,13 @@ function receiveMessage(msgdata) {
 
 function addwebsocket(instancename, subprotocol) {
   //var wsuri = document.URL.replace("http:", "ws:");
-  var wsuri = 'ws://172.19.106.91:2812';
-  if (typeof subprotocol === "undefined") {
+  var wsuri = 'ws://localhost:2812';
+  //if (typeof subprotocol === "undefined") {
     ws = new WebSocket(wsuri)
-  } else {
-    ws = new WebSocket(wsuri, subprotocol)
-  } //if
-  ws.mynam = instancename;
+  //} else {
+ //   ws = new WebSocket(wsuri, subprotocol, perMessageDeflate = false)
+  //} //if
+  ws.mmynam = instancename;
   ws.onerror = function (e) {
     addContent("WebSocket " + instancename + ".onerror: " +
       "Websocket state is now " + e.target.readyState +
@@ -79,6 +78,11 @@ function addwebsocket(instancename, subprotocol) {
     //document.getElementById("say_message").style.display = "hidden"
     //document.getElementById("welcome").style.display = "hidden"
   }
+
+  ws.onmessage = function (e) { 
+    console.log(e.data)
+  }
+
   return ws
 } // addwebsocket
 
@@ -161,12 +165,14 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function start() {
+async function start(tfs) {
 
   console.log('**** Inicio ****** ');
 
-  load()
-  
+  //load()
+
+  let ws = addwebsocket("ws");
+
   console.log(`readystate: ${readystateDesc[ws.readyState]}`)
 
   // while (ws.readyState != WebSocket.OPEN) {
@@ -189,21 +195,38 @@ async function start() {
     //return
   }
 
-  applyUserName('myuser')
+  //applyUserName('myuser')
 
-  sendonws(ws, 'msg test 1')
-  sendonws(ws, 'msg test 2')
-  sendonws(ws, 'msg test 3')
-  sendonws(ws, 'tf:(8 / (8s + 1))*1/s')
+  // sendonws(ws, 'msg test 1')
+  // sendonws(ws, 'msg test 2')
+  // sendonws(ws, 'msg test 3')
+  sendonws(ws, `tfs:${tfs}`)
 
-  // for (let index = 0; index <= 60; index++) {
-  //   sendonws(ws, `tfc:${index}`)
-  // }
+  // await new Promise(r => setTimeout(r, 2000));
+
+  // sendonws(ws, 'msg test 1')
+
+  //sendonws(ws, `tfc:${1}`)
+
+  for (let index = 0; index <= 60; index++) {
+    sendonws(ws, `tfc:${index}`)
+  }
+
+  //sendonws(ws, `tfc:${valueCalc}`)
+  //await new Promise(r => setTimeout(r, 1000));
+  //ws.close()
 
   console.log('**** Fim ****** ');
 }
 
-start()
+start("8 / (8s + 1)")
+start("4 / (4s + 1)")
+// start(10)
+// start(20)
+// start(30)
+// start(40)
+// start(50)
+// start(60)
 
 // let ws = new WebSocket('ws://172.19.108.11:2812');
 

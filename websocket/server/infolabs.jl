@@ -3,7 +3,7 @@
 module InfoLabs
 
 using InverseLaplace
-import InverseLaplace: talbot
+#import InverseLaplace: talbot
 
 export InfoLab;
 
@@ -11,6 +11,7 @@ mutable struct InfoLab
     tp::String
     name::String
     func::String
+    func_parse::Function
     func_invlap::Talbot
 
     Values;
@@ -30,8 +31,11 @@ mutable struct InfoLab
         end
 
         this.CalcValue = function(time::Int)
-            push!(this.Values, (time, this.func_invlap(time)))            
-            nothing
+            local value = eval(Meta.parse("InverseLaplace.talbot(s -> (" * this.func * ")*1/s" * ", " * string(time) * ")"))
+            #local value = eval(Meta.parse("InverseLaplace.talbot(s -> (" * "8 / (8s + 1)" * ")*1/s" * ", " * "1" * ")"))
+            #push!(this.Values, (time, this.func_invlap(time))) 
+            #push!(this.Values, (time, value))
+            return value
         end        
 
         return this
