@@ -24,6 +24,9 @@ module.exports = function (RED) {
         this.inputFlow = 0.0;
         this.outputFlow = 0.0;
 
+        this.Debug = {};
+        this.LastDebug = {};
+
         var node = this;
 
         // create a tcp modbus client
@@ -68,6 +71,14 @@ module.exports = function (RED) {
                 var msg3 = { payload: node.inputFlow };
                 node.send([msg1, msg2, msg3]);
 
+                node.Debug.ModbusConnected = node.modbusConnected;
+
+                if (JSON.stringify(node.LastDebug) !== JSON.stringify(node.Debug)){
+                    node.LastDebug = node.Debug;
+                    node.warn(node.LastDebug);
+                }                
+                
+
             }, node.intervalUpdate);
         }
 
@@ -76,24 +87,30 @@ module.exports = function (RED) {
             if (node.socket === null) {
                 node.socket = new net.Socket();
 
-                node.socket.on('error', function (socket) {
+                node.socket.on('error', function (err) {
                     node.modbusConnected = false;
+                    node.Debug.SocketStatus = 'Errot';
+                    node.Debug.SocketMessage = err;
                 });
 
                 node.socket.on("connect", function (socket) {
+                    node.Debug.SocketStatus = 'Connect';
                 });
 
                 node.socket.on("close", err => {
                     node.modbusConnected = false;
+                    node.Debug.SocketStatus = 'Close';
                 });
 
                 node.socket.on("end", err => {
                     node.modbusConnected = false;
+                    node.Debug.SocketStatus = 'End';
                 });
 
                 node.socket.on("ready", err => {
                     node.client.writeSingleRegister(node.modbusRegister, Math.trunc(node.valveOpen))
                         .then(function (resp) {
+                            node.Debug.SocketStatus = 'Ready';
                             node.modbusConnected = true;
                         }).catch(function () {
                             node.error(arguments);
@@ -103,22 +120,18 @@ module.exports = function (RED) {
             }
 
             if (node.socket !== null && node.client === null) {
-                node.client = new Modbus.client.TCP(node.socket, 1)
-            }
-
-            if (!node.modbusConnected) {
-                try {
-                    node.socket.connect({
-                        'host': node.modbusHost,
-                        'port': node.modbusPort,
-                        'autoReconnect': true
-                    })
-                } catch (e) {
-                    node.error(e); //'Erro on Modbus connect', 
-                }
-            }
+                node.client = new Modbus.client.TCP(node.socket, 1);
+            }            
 
             node.intervalModbus_id = setInterval(function () {
+
+                if (!node.modbusConnected) {
+                        node.socket.connect({
+                            'host': node.modbusHost,
+                            'port': node.modbusPort,
+                            'autoReconnect': true
+                        })
+                }
 
                 if (node.modbusConnected) {
                     node.client.readHoldingRegisters(node.modbusRegister, 1).then(function (resp) {
