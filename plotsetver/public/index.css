@@ -1,70 +1,56 @@
-body {
-    font-family: 'Helvetica Neue', Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+.tabsdemoDynamicTabs md-content {
+    background-color: transparent !important;
 }
 
-ul {
-    display: inline-block;
-    width: 1400px;
-    margin: 48px auto;
-    border-bottom: 1px solid #DAE0E7;
-    background: #F9F9F9;
-    list-style-type: none;
-    padding: 12px 12px 0;
+.tabsdemoDynamicTabs md-content md-tabs {
+    border: 1px solid #e1e1e1;
 }
 
-a {
-    text-decoration: none;
-    color: #333;
+.tabsdemoDynamicTabs md-content md-tabs md-tab-content {
+    background: #f6f6f6;
 }
 
-.tab {
-    float: left;
-    height: 44px;
-    margin: 0 8px -1px 0;
-    border: 1px solid #DAE0E7;
-    background: #F9F9F9;
-    border-radius: 8px 8px 0 0;
-    overflow: hidden;
+.tabsdemoDynamicTabs md-content md-tabs md-tabs-canvas {
+    background: white;
 }
 
-.tab,
-.tab a {
-    transition: all .25s;
+.tabsdemoDynamicTabs md-content h1:first-child {
+    margin-top: 0;
 }
 
-.tab a {
-    display: inline-block;
+.tabsdemoDynamicTabs md-input-container {
+    padding-bottom: 0;
 }
 
-.tab a:first-child {
-    padding: 12px 2px 12px 16px;
-    white-space: nowrap;
+.tabsdemoDynamicTabs .remove-tab {
+    margin-bottom: 40px;
 }
 
-.tab.tabClosed,
-.tab.tabClosed a:first-child {
-    margin-right: 0;
-    border-width: 0;
+.tabsdemoDynamicTabs .demo-tab>div>div {
+    padding: 25px;
+    box-sizing: border-box;
 }
 
-.tab.tabClosed {
-    width: 0 !important;
-    /* use important because we need to set the width of tabs in javascript in order to be able to animate them to 0 */
+.tabsdemoDynamicTabs .edit-form input {
+    width: 100%;
 }
 
-.tab.tabClosed a {
-    opacity: 0;
+.tabsdemoDynamicTabs md-tabs {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
-.tab:hover {
-    background: #fff;
+.tabsdemoDynamicTabs md-tab[disabled] {
+    opacity: 0.5;
 }
 
-.tabSelected {
-    height: 45px;
-    border-bottom: none;
-    background: #fff;
+.tabsdemoDynamicTabs label {
+    text-align: left;
+}
+
+.tabsdemoDynamicTabs .long>input {
+    width: 264px;
+}
+
+.tabsdemoDynamicTabs .md-button.add-tab {
+    transform: translateY(5px);
 }
