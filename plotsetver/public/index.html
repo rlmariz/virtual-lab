@@ -20,6 +20,8 @@
 
 
   <link rel="shortcut icon" href="favicon.ico">
+
+  <script src="https://code.jquery.com/jquery-3.6.3.slim.js"></script>
 </head>
 
 
@@ -30,7 +32,11 @@
       <md-tabs md-selected="selectedIndex" md-border-bottom="">
         <md-tab ng-repeat="tab in tabs" ng-disabled="tab.disabled" label="{{tab.title}}">
           <div class="demo-tab tab{{$index%4}}" style="padding: 25px; text-align: center;">
-            <div ng-bind="tab.content"></div>
+            <!-- <div ng-bind="tab.content"></div> -->
+            <div>
+              <p class="lead">Simulação de Malha de Controle em tempo real</p>
+              <canvas id="myChart" width="1200" height="400"></canvas>
+            </div>
             <br>
             <md-button class="md-primary md-raised" ng-click="removeTab( tab )" ng-disabled="tabs.length <= 1">Remove
               Tab</md-button>
@@ -62,5 +68,11 @@
   </div>
 
 </body>
+
+<footer>
+
+  <script src="chartjs.js"></script>
+
+</footer>
 
 </html>
