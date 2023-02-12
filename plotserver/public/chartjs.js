@@ -102,4 +102,4 @@ function addPlot(plotItem){
     plotAreaContent.appendChild(div);    
 }
 
-addPlots()
+//addPlots()

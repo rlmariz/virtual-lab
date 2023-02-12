@@ -1,6 +1,9 @@
-const WebSocket = require('ws');
+import { WebSocket } from 'ws';
+//const WebSocket = require('ws')
 
-const codeDesc = {
+var wsuri = 'ws://localhost:2812';
+
+export const codeDesc = {
   1000: "Normal",
   1001: "Going Away",
   1002: "Protocol Error",
@@ -19,22 +22,18 @@ const codeDesc = {
   1015: "TLS Handshake"
 };
 
-const readystateDesc = {
+export const readyStateDesc = {
   0: "CONNECTING",
   1: "OPEN",
   2: "CLOSING",
   3: "CLOSED"
 };
 
-var username = "";
-var appliedusername = "";
-
-function load() {
-  ws = addwebsocket("ws");
-  ws.onmessage = function (e) { receiveMessage(e.data) }
+function logSocketEvent(event) {
+  console.log(event);
 }
 
-async function connection(socket, timeout = 10000) {
+export async function connectWebSocket(socket, timeout = 10000) {
   const isOpened = () => (socket.readyState === WebSocket.OPEN)
 
   if (socket.readyState !== WebSocket.CONNECTING) {
@@ -47,114 +46,50 @@ async function connection(socket, timeout = 10000) {
     while (socket.readyState === WebSocket.CONNECTING && loop < ttl) {
       await new Promise(resolve => setTimeout(resolve, intrasleep))
       loop++
-      console.log(`timeout: ${timeout}`)
-      console.log(`intrasleep: ${intrasleep}`)
-      console.log(`ttl: ${ttl}`)
-      console.log(`loop: ${loop}`)
+      logSocketEvent(`timeout: ${timeout}`)
+      logSocketEvent(`intrasleep: ${intrasleep}`)
+      logSocketEvent(`ttl: ${ttl}`)
+      logSocketEvent(`loop: ${loop}`)
     }
     return isOpened()
   }
 }
 
-function receiveMessage(msgdata) {
-  if (username == "") {
-    if (msgdata == appliedusername) {
-      username = msgdata;
-      console.log(`username ${username}`)
-    } else {
-      if (msgdata == "Username taken!") {
-        addContent(msgdata)
-      }
-    }
-  } else {
-    addContent("received: " + msgdata)
-  }
-}
+export function addWebSocket(instanceName) {
+  let ws = new WebSocket(wsuri)
+  ws.instanceName = instanceName;
 
-function addWebSocket(instancename) {
-    var wsuri = 'ws://localhost:2812';
-  ws = new WebSocket(wsuri)
-  ws.mmynam = instancename;
   ws.onerror = function (e) {
-    addContent("WebSocket " + instancename + ".onerror: " +
-      "Websocket state is now " + e.target.readyState +
-      " " + readystateDesc[e.target.readyState])
+    logSocketEvent("WebSocket " + instanceName + ".onerror: " + "Websocket state is now " + e.target.readyState + " " + readyStateDesc[e.target.readyState])
   }
+
   ws.onopen = function (e) {
-    addContent("WebSocket " + instancename + ".onopen: " +
-      "Websocket state is now " + e.target.readyState +
-      " " + readystateDesc[e.target.readyState])
+    logSocketEvent("WebSocket " + instanceName + ".onopen: " + "Websocket state is now " + e.target.readyState + " " + readyStateDesc[e.target.readyState])
   }
+
   ws.onclose = function (e) {
-    addContent("WebSocket " + instancename + ".onclose: Reload page to chat again.");
+    logSocketEvent("WebSocket " + instanceName + ".onclose: Reload page to chat again.");
   }
 
   ws.onmessage = function (e) {
-    console.log(e.data)
-  }
+    logSocketEvent(e.data)
+  }  
 
   return ws
-} 
+}
 
-function addContent(html) {
-  //var div = document.createElement("div");
-  //div.innerHTML = html;
-  //document.getElementById("content").appendChild(div);
-  console.log(html);
-} // addContent
+function receiveSocket(msgdata) {
+  logSocketEvent("received: " + msgdata)
+}
 
-function applyUserName(applyfor) {
-  if (!applyfor.replace(/\s/gi, '').length) {
-    //alert("Please select a valid user name")
-    console.log('alert: Please select a valid user name')
-  } else {
-    if (sendonws(ws, "userName:" + applyfor)) {
-      appliedusername = applyfor
-    }
-  }
-} // applyUserName
 
-function sendonws(websocket, msg) {
+export function sendSocket(websocket, msg) {
   if (websocket.readyState == 1) {
     websocket.send(msg);
     return true;
   } else {
-    //alert("WebSocket not ready. Reload page or check server!");
-    console.log('WebSocket not ready. Reload page or check server!')
+    logSocketEvent('WebSocket not ready!')
     return false
-  } // if
-} // sendonws
-
-
-////////////Teste///////////////////
-async function start(tfs) {
-
-  console.log('**** Inicio ****** ');
-
-  let ws = addWebSocket("ws");
-
-  console.log(`readystate: ${readystateDesc[ws.readyState]}`)
-
-  await new Promise(r => setTimeout(r, 3000));
-
-  console.log(`readystate: ${readystateDesc[ws.readyState]}`)
-
-  const opened = await connection(ws, 10000)
-  if (opened) {
-    console.log("opened true")
   }
-  else {
-    console.log("the socket is closed OR couldn't have the socket in time, program crashed");
-  }
-
-  sendonws(ws, `tfs:${tfs}`)
-
-  for (let index = 0; index <= 60; index++) {
-    sendonws(ws, `tfc:${index}`)
-  }
-
-  console.log('**** Fim ****** ');
 }
 
-start("8 / (8s + 1)")
-start("4 / (4s + 1)")
