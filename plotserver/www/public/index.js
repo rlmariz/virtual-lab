@@ -1,9 +1,9 @@
-import { addWebSocket, connectWebSocket, readyStateDesc, sendSocket } from "./websocket-client.js";
+//import { addWebSocket, connectWebSocket, readyStateDesc, sendSocket } from "./websocket-client.js";
 
 async function load() {
     console.log('**** Inicio ****** ');
 
-    let ws = addWebSocket("ws");
+    let ws = createSocket("ws");
   
     console.log(`readystate: ${readyStateDesc[ws.readyState]}`)
   
@@ -11,7 +11,7 @@ async function load() {
   
     console.log(`readystate: ${readyStateDesc[ws.readyState]}`)
   
-    const opened = await connectWebSocket(ws, 10000)
+    const opened = await connectSocket(ws, 10000)
     if (opened) {
       console.log("opened true")
     }

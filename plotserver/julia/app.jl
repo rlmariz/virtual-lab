@@ -31,7 +31,9 @@ listen(server, :client) do client
     #il = InfoLab();
 
     if !haskey(ListInfoLabs, client.id )
-        push!(ListInfoLabs, client.id => InfoLab())
+        a = InfoLab();
+        a.Socket = client
+        push!(ListInfoLabs, client.id => a)
     end
 
     listen(client, :message) do message        
@@ -46,12 +48,21 @@ listen(server, :client) do client
                 end
             end
 
+            if startswith(message, "tfn:")
+                try            
+                    infolab.name = message[length("tfn:") + 1:end]
+                    @info "tfn: " client = client.id name = infolab.name
+                catch e
+                    println(e)
+                end
+            end
+
             if startswith(message, "tfc:")
                 try      
                     local time = parse(Int, message[length("tfc:") + 1:end]);
                     local value = infolab.CalcValue(time)                    
                     send(client, "$value")
-                    notifyplot()
+                    notifyplot(infolab.name, value)
                     #local value = eval(Meta.parse("InverseLaplace.talbot(s -> (" * infolab.func * ")*1/s" * ", " * "1" * ")"))
                     @info "Calc: " client = client.id message = message time = time value = value
                     #let time = message[length("tfc:") + 1:end]
@@ -98,11 +109,24 @@ listen(server, :client) do client
     end
 end
 
-function notifyplot()
-    foreach(client, ListInfoLabs)
-    quote
-        @info "Notify Plot: " client = client.id
-    end            
+function notifyplot(name, calc)
+    #for pair in ListInfoLabs
+        #@info "Notify Plot: " client = pair.id
+        for (key, value) in ListInfoLabs
+            message = "{\"name\": \"$name\", \"value\": $calc}";
+            send(value.Socket, message)
+        end
+        # @info "Notify Plot: "
+    #end            
+end
+
+function distributemsg(msgout, not_to_ws)
+    foreach(keys(WEBSOCKETS)) do ws
+        if ws !== not_to_ws
+            writeguarded(ws, msgout)
+        end
+    end
+    nothing
 end
 
 listen(server, :connectError) do err

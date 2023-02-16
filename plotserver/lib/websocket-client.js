@@ -33,7 +33,7 @@ function logSocketEvent(event) {
   console.log(event);
 }
 
-export async function connectWebSocket(socket, timeout = 10000) {
+export async function connectSocket(socket, timeout = 10000) {
   const isOpened = () => (socket.readyState === WebSocket.OPEN)
 
   if (socket.readyState !== WebSocket.CONNECTING) {
@@ -55,7 +55,7 @@ export async function connectWebSocket(socket, timeout = 10000) {
   }
 }
 
-export function addWebSocket(instanceName) {
+export function createSocket(instanceName) {
   let ws = new WebSocket(wsuri)
   ws.instanceName = instanceName;
 

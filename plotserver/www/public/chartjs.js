@@ -1,12 +1,4 @@
-var listPlots = new Array();
-
-listPlots.push({
-    'name': 'plot_1'
-});
-
-listPlots.push({
-    'name': 'plot_2'
-});
+var listPlots = {};
 
 function addDataPlant(chart, label, data) {
     chart.data.labels.push(label);
@@ -33,28 +25,13 @@ function createChart(ctx){
         data: {
             labels: [],
             datasets: [{
-                label: 'PV',
-                lineTension: 0.2,
-                pointRadius: 0,
-                fill: false,
-                borderColor: 'rgba(75,72,192)',
-                data: []
-            }, {
                 label: 'SC',
                 lineTension: 0.2,
                 pointRadius: 0,
                 fill: false,
                 borderColor: 'rgba(0,0,2)',
                 data: []
-            }, {
-                label: 'SP',
-                lineTension: 0.2,
-                pointRadius: 0,
-                fill: false,
-                borderColor: 'rgba(200,0,2)',
-                data: []
-            }],
-            
+            }],            
         },
         options: {
             scales: {
@@ -100,6 +77,31 @@ function addPlot(plotItem){
 
     plotArea.appendChild(li);
     plotAreaContent.appendChild(div);    
+}
+
+function plotValue(message) {
+    let plotValue = JSON.parse(message)
+
+    if (listPlots[plotValue.name] == undefined){
+        plotItem = {
+            'name': plotValue.name
+        }        
+        plotValue.chart = addPlot(plotItem);
+        listPlots[plotValue.name] = plotItem;
+    }
+
+    //listPlots[plotValue.name].chart.data.datasets[0].data.push(plotValue.value);
+    //listPlots[plotValue.name].chart.update();
+
+    addData(listPlots[plotValue.name].chart, 0, 1)
+
+    // if (!listPlots.includes(plotValue.name)){
+    //     plotItem = {
+    //         'name': plotValue.name
+    //     }        
+    //     plotValue.chart = addPlot(plotItem);
+    //     listPlots.push(plotValue.name);        
+    // }
 }
 
 //addPlots()
