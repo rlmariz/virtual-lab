@@ -27,7 +27,7 @@ mutable struct InfoLab
 
         this.CalcInverseLaplace = function()
             f = eval(Meta.parse("f(s) = " * this.func));
-            this.func_invlap = Talbot(f, 80);        
+            this.func_invlap = Talbot(f, 80);                    
             nothing
         end
 
@@ -36,6 +36,9 @@ mutable struct InfoLab
             #local value = eval(Meta.parse("InverseLaplace.talbot(s -> (" * "8 / (8s + 1)" * ")*1/s" * ", " * "1" * ")"))
             #push!(this.Values, (time, this.func_invlap(time))) 
             #push!(this.Values, (time, value))
+            if isnan(value)
+                value = 0
+            end
             return value
         end        
 

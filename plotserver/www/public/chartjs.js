@@ -26,7 +26,7 @@ function createChart(ctx){
             labels: [],
             datasets: [{
                 label: 'SC',
-                lineTension: 0.2,
+                lineTension: 0.1,
                 pointRadius: 0,
                 fill: false,
                 borderColor: 'rgba(0,0,2)',
@@ -73,10 +73,10 @@ function addPlot(plotItem){
     div.id = plotItem.name;
     div.appendChild(canvas);        
 
-    plotItem.graf = createChart(canvas.getContext('2d'))
-
     plotArea.appendChild(li);
     plotAreaContent.appendChild(div);    
+
+    return createChart(canvas.getContext('2d'))
 }
 
 function plotValue(message) {
@@ -86,14 +86,15 @@ function plotValue(message) {
         plotItem = {
             'name': plotValue.name
         }        
-        plotValue.chart = addPlot(plotItem);
+        plotItem.chart = addPlot(plotItem);
         listPlots[plotValue.name] = plotItem;
     }
 
     //listPlots[plotValue.name].chart.data.datasets[0].data.push(plotValue.value);
     //listPlots[plotValue.name].chart.update();
 
-    addData(listPlots[plotValue.name].chart, 0, 1)
+    //addData(listPlots[plotValue.name].chart, 0, 1)
+    addDataPlant(listPlots[plotValue.name].chart, plotValue.time, plotValue.value)
 
     // if (!listPlots.includes(plotValue.name)){
     //     plotItem = {

@@ -62,7 +62,7 @@ listen(server, :client) do client
                     local time = parse(Int, message[length("tfc:") + 1:end]);
                     local value = infolab.CalcValue(time)                    
                     send(client, "$value")
-                    notifyplot(infolab.name, value)
+                    notifyplot(infolab.name, time, value)
                     #local value = eval(Meta.parse("InverseLaplace.talbot(s -> (" * infolab.func * ")*1/s" * ", " * "1" * ")"))
                     @info "Calc: " client = client.id message = message time = time value = value
                     #let time = message[length("tfc:") + 1:end]
@@ -109,12 +109,12 @@ listen(server, :client) do client
     end
 end
 
-function notifyplot(name, calc)
+function notifyplot(name, time, value)
     #for pair in ListInfoLabs
         #@info "Notify Plot: " client = pair.id
-        for (key, value) in ListInfoLabs
-            message = "{\"name\": \"$name\", \"value\": $calc}";
-            send(value.Socket, message)
+        for (key, client) in ListInfoLabs
+            message = "{\"name\": \"$name\", \"time\": $time, \"value\": $value}";
+            send(client.Socket, message)
         end
         # @info "Notify Plot: "
     #end            
