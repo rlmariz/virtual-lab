@@ -37,4 +37,4 @@ async function start(tfs, name) {
 
 start("8 / (8s + 1)", "plot-1")
 
-start("4 / (4s + 1)", "plot-2")
+//start("4 / (4s + 1)", "plot-2")

@@ -1,7 +1,7 @@
 import { WebSocket } from 'ws';
 //const WebSocket = require('ws')
 
-var wsuri = 'ws://localhost:2812';
+var wsuri = 'ws://localhost:2812 ';
 
 export const codeDesc = {
   1000: "Normal",
