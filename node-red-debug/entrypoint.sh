@@ -1,5 +1,9 @@
 #!/bin/bash
 
-npm install ./nodes/intelligentcontrol/
+# cd /data
+
+# npm install /usr/src/node-red/nodes/intelligentcontrol/
+
+# cd /usr/src/node-red
 
 npm start

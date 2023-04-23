@@ -24,8 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "node-red": "^3.0.2",
-    "node-red-admin": "^3.0.0",
-    "red-contrib-remotelearn-intelligentcontrol": "file:nodes/intelligentcontrol"
+    "node-red-admin": "^3.0.0"
   },
   "browserslist": [
     "> 0.5%",

@@ -12,6 +12,7 @@ services:
       - ./node_red_data:/data
       - ./package.json:/usr/src/node-red/package.json
       - ./nodemon.json:/usr/src/node-red/nodemon.json
+      - ./nodes/intelligentcontrol:/data/node_modules/red-contrib-remotelearn-intelligentcontrol
       # - ./entrypoint.sh:/usr/src/node-red/entrypoint.sh
     ports:
       - 1880:1880
