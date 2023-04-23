@@ -1,12 +1,29 @@
-version: '3'
+version: '3.4'
 
 services:
-  app:
+  node-red:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    environment:
+      NODE_ENV: development
     volumes:
-      - ./:/usr/src/app
-      - /usr/src/app/node_modules # Remove this if you have pure JS dependencies
+      - ./nodes:/usr/src/node-red/nodes
+      - ./node_red_data:/data
+      - ./package.json:/usr/src/node-red/package.json
+      - ./nodemon.json:/usr/src/node-red/nodemon.json
+      # - ./entrypoint.sh:/usr/src/node-red/entrypoint.sh
     ports:
-      - "1880:1880"
+      - 1880:1880
+      - 9229:9229
+    #command: [ "npm", "start" ]
+    # entrypoint:
+      # [
+      #   "sh",
+      #   "-c",
+      #   "npm install ./nodes/intelligentcontrol/",
+      #   "&&",
+      #   "npm",
+      #   "start"
+      # ]
+    #entrypoint: ["npm", "start"]
