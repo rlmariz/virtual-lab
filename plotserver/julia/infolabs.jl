@@ -64,10 +64,13 @@ end
 
 function process_message(infolab::InfoLab, message::String)
 
+    value = 0;
+    time = 0;
     msg = "";
 
     if startswith(message, "tfs:")
         try
+            msg = "tfs";
             infolab.func = message[length("tfs:")+1:end]
         catch e
             println(e)
@@ -76,6 +79,7 @@ function process_message(infolab::InfoLab, message::String)
 
     if startswith(message, "tfn:")
         try
+            msg = "tfn";
             infolab.name = message[length("tfn:")+1:end]
             @info "tfn: " name = infolab.name
         catch e
@@ -85,9 +89,10 @@ function process_message(infolab::InfoLab, message::String)
 
     if startswith(message, "tfc:")
         try
-            local time = parse(Int, message[length("tfc:")+1:end])
-            local value = infolab.CalcValue(time)            
-            msg = "$value";
+            msg = "tfc";
+            time = parse(Int, message[length("tfc:")+1:end])
+            value = infolab.CalcValue(time)            
+            # msg = "$value";
             # send(client, "$value")
             # notifyplot(infolab.name, time, value)
             #local value = eval(Meta.parse("InverseLaplace.talbot(s -> (" * infolab.func * ")*1/s" * ", " * "1" * ")"))
@@ -98,5 +103,5 @@ function process_message(infolab::InfoLab, message::String)
         end
     end
 
-    return msg;
+    return time, value, msg;
 end

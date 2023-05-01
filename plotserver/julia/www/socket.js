@@ -27,6 +27,7 @@ function addwebsocket(instancename, subprotocol) {
 
    ws.onopen = function (e) {
       console.log("WebSocket " + instancename + ".onopen: Websocket state is now " + e.target.readyState + " " + readystateDesc[e.target.readyState]);
+      sendonws(ws, 'tfn:plot')
    }
 
    ws.onclose = function (e) {

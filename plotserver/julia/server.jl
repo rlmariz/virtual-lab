@@ -1,7 +1,7 @@
 # kill -9 $(pgrep -f julia)
 # pidof julia
 using WebSockets
-import WebSockets:Response, Request, target
+import WebSockets: Response, Request, target
 using Dates
 using Sockets
 using InverseLaplace
@@ -19,7 +19,7 @@ const CLOSEAFTER = Dates.Second(15)
 const HTTPPORT = 2812
 #const LOCALIP = string(Sockets.getipaddr())
 const LOCALIP = "0.0.0.0"
-const USERNAMES = Dict{String, WebSocket}()
+const USERNAMES = Dict{String,WebSocket}()
 const HTMLSTRING = read(joinpath(@__DIR__, "chat_explore.html"), String)
 
 
@@ -37,10 +37,10 @@ To use:
 # Since we are to access a websocket from outside
 # it's own websocket handler coroutine, we need some kind of
 # mutable container for storing references:
-const WEBSOCKETS = Dict{WebSocket, Int}()
-global ListInfoLabs = Dict{WebSocket, InfoLab}()
+const WEBSOCKETS = Dict{WebSocket,Int}()
+global ListInfoLabs = Dict{WebSocket,InfoLab}()
 
-ended = Condition() 
+ended = Condition()
 
 """
 Called by 'gatekeeper', this function will be running in a task while the
@@ -50,8 +50,8 @@ Other instances of the function run in other tasks.
 function coroutine(thisws)
     println("call coroutine")
     global lastws = thisws
-    push!(WEBSOCKETS, thisws => length(WEBSOCKETS) +1 )
-    push!(ListInfoLabs, thisws => InfoLab() )    
+    push!(WEBSOCKETS, thisws => length(WEBSOCKETS) + 1)
+    push!(ListInfoLabs, thisws => InfoLab())
     t1 = now() + CLOSEAFTER
     username = ""
     #while now() < t1
@@ -59,6 +59,7 @@ function coroutine(thisws)
 
         data, success = readguarded(thisws)
         !success && break
+
         global LASTMSG = msg = String(data)
 
         @info Received = msg
@@ -68,16 +69,18 @@ function coroutine(thisws)
         try
 
             let infolab = get(ListInfoLabs, thisws, InfoLab())
-                resp = process_message(infolab, msg)
-                if (resp != "")
-                    writeguarded(thisws, resp)    
+                local time, value, msgtype = process_message(infolab, msg)
+                # if ("$value" != "")
+                if msgtype == "tfc"
+                    writeguarded(thisws, "$value")
+                    notifyplot(infolab.name, time, value)                
                 end
             end
 
         catch err
             #t = catch_backtrace()
-            println("deu erro")
-            println(err)
+            println("error [$err] on process message [$msg].")
+            #println(err)
             #showerror(stderr, err, bt)
         end
         # This next call waits for a message to
@@ -118,6 +121,15 @@ function coroutine(thisws)
     nothing
 end
 
+function notifyplot(name, time, value)
+    for (ws, infolab) in ListInfoLabs
+        if infolab.name == "plot"
+            message = "{\"name\": \"$name\", \"time\": $time, \"value\": $value}"
+            writeguarded(ws, message)
+        end
+    end
+end
+
 function removereferences(ws)
     haskey(WEBSOCKETS, ws) && pop!(WEBSOCKETS, ws)
     for (discardname, wsref) in USERNAMES
@@ -132,8 +144,8 @@ end
 
 function approvedusername(msg, ws)
     !startswith(msg, "userName:") && return ""
-    newname = msg[length("userName:") + 1:end]
-    newname =="" && return ""
+    newname = msg[length("userName:")+1:end]
+    newname == "" && return ""
     haskey(USERNAMES, newname) && return ""
     push!(USERNAMES, newname => ws)
     newname

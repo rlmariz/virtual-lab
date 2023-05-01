@@ -2,7 +2,7 @@
     {
         "id": "c93c614a599c933f",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "Transfer Funcion",
         "disabled": false,
         "info": "",
         "env": []
@@ -15,34 +15,52 @@
         "props": [
             {
                 "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
             }
         ],
-        "repeat": "",
+        "repeat": "1",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 120,
-        "y": 100,
+        "payload": "1",
+        "payloadType": "num",
+        "x": 170,
+        "y": 180,
         "wires": [
-            []
+            [
+                "99a477e778710b4d"
+            ]
         ]
     },
     {
-        "id": "0966c873cc64f820",
-        "type": "lower-case",
+        "id": "99a477e778710b4d",
+        "type": "transfer-function",
         "z": "c93c614a599c933f",
         "name": "",
-        "x": 130,
-        "y": 200,
+        "function": "8 / (8s + 1)",
+        "x": 400,
+        "y": 180,
         "wires": [
-            []
+            [
+                "f31516dc93619357"
+            ]
         ]
+    },
+    {
+        "id": "f31516dc93619357",
+        "type": "debug",
+        "z": "c93c614a599c933f",
+        "name": "output h(s)",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 180,
+        "wires": []
     }
 ]

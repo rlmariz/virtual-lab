@@ -2,9 +2,11 @@
   "name": "red-contrib-remotelearn-intelligentcontrol",
   "version": "1.0.0",
   "description": "Virtual laboratory for learning Intelligent Systems Control.",
-  "node-red" : {
+  "node-red": {
     "nodes": {
-        "lower-case": "lower-case.js"
+      "lower-case": "lower-case.js",
+      "lower-case2": "lower-case2.js",
+      "transfer-function": "transfer-function.js"
     }
   },
   "scripts": {
@@ -20,5 +22,9 @@
     "Control."
   ],
   "author": "Ricardo Lima Mariz",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^4.6.1",
+    "websocket": "^1.0.34"
+  }
 }
