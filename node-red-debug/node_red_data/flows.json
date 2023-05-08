@@ -8,6 +8,103 @@
         "env": []
     },
     {
+        "id": "ed4eae75be39af2a",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
         "id": "1a66482931460f20",
         "type": "inject",
         "z": "c93c614a599c933f",
@@ -24,11 +121,13 @@
         "topic": "",
         "payload": "1",
         "payloadType": "num",
-        "x": 170,
-        "y": 180,
+        "x": 190,
+        "y": 240,
         "wires": [
             [
-                "99a477e778710b4d"
+                "99a477e778710b4d",
+                "10e3e83e176f5a29",
+                "0f7ebb369b607327"
             ]
         ]
     },
@@ -38,11 +137,11 @@
         "z": "c93c614a599c933f",
         "name": "",
         "function": "8 / (8s + 1)",
-        "x": 400,
+        "x": 390,
         "y": 180,
         "wires": [
             [
-                "f31516dc93619357"
+                "94257585bc058f70"
             ]
         ]
     },
@@ -59,8 +158,62 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 670,
-        "y": 180,
+        "x": 890,
+        "y": 240,
         "wires": []
+    },
+    {
+        "id": "94257585bc058f70",
+        "type": "plot",
+        "z": "c93c614a599c933f",
+        "name": "Plot-1",
+        "x": 670,
+        "y": 240,
+        "wires": [
+            [
+                "f31516dc93619357"
+            ]
+        ]
+    },
+    {
+        "id": "10e3e83e176f5a29",
+        "type": "transfer-function",
+        "z": "c93c614a599c933f",
+        "name": "",
+        "function": "4 / (4s + 1)",
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "94257585bc058f70"
+            ]
+        ]
+    },
+    {
+        "id": "7a30cfc4d5b46bf7",
+        "type": "plot",
+        "z": "c93c614a599c933f",
+        "name": "Plot-2",
+        "x": 670,
+        "y": 400,
+        "wires": [
+            [
+                "f31516dc93619357"
+            ]
+        ]
+    },
+    {
+        "id": "0f7ebb369b607327",
+        "type": "transfer-function",
+        "z": "c93c614a599c933f",
+        "name": "",
+        "function": "9/(s^2 + 100s + 3)",
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "7a30cfc4d5b46bf7"
+            ]
+        ]
     }
 ]

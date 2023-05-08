@@ -76,7 +76,11 @@ module.exports = function (RED) {
 
         node.ws.onmessage = function (e) {
             node.log(`WebSocket message: ${e.data}`);
-            node.send({payload: parseFloat(e.data)});
+            node.send({
+                payload: parseFloat(e.data),
+                time: node.time,
+                label: node.name || node.function || node.id
+            });
         }
 
         node.sendonws = function (msg) {
@@ -99,6 +103,7 @@ module.exports = function (RED) {
             let valueInput = msg.payload;
 
             msg.payload = valueInput;
+            msg.label = node.name;
 
             node.sendonws(`tfc:${node.time++}`)
         });

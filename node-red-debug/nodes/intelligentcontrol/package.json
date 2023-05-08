@@ -5,7 +5,7 @@
   "node-red": {
     "nodes": {
       "lower-case": "lower-case.js",
-      "lower-case2": "lower-case2.js",
+      "plot": "plot.js",
       "transfer-function": "transfer-function.js"
     }
   },
