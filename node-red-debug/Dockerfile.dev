@@ -1,9 +1,9 @@
-FROM nodered/node-red:latest
+FROM mcr.microsoft.com/devcontainers/javascript-node:0-20
 
 ENV TZ=America/Sao_Paulo
 ENV NODE_ENV=production
 
-USER root
+#USER root
 
 # Set work directory
 #WORKDIR /usr/src/node-red
@@ -50,7 +50,7 @@ RUN npm install nodemon -g
 COPY entrypoint.sh .
 RUN chmod +x entrypoint.sh
 
-USER node-red
+#USER devcontainer
 
 # Bundle app source
 #COPY . .

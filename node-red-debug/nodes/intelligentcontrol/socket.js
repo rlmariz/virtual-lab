@@ -28,7 +28,6 @@ var events = require('events');
 var process = require('process');
 var socketio = require('socket.io');
 var serveStatic = require('serve-static');
-var compression = require('compression');
 var dashboardVersion = require('./package.json').version;
 var ws = require('ws')
 var url = require('url');

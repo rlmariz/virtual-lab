@@ -4,7 +4,7 @@
   "description": "Test environment for developing Node-RED flows",
   "main": "node_modules/node-red/red.js",
   "scripts": {
-    "start": "nodemon node_modules/node-red/red.js --userDir /data",
+    "start": "nodemon node_modules/node-red/red.js --userDir ./data",
     "inspect": "node --inspect node_modules/node-red/red.js --userDir ./data",
     "update": "npm install --unsafe-perm --production node-red",
     "check": "npm outdated",

@@ -24,6 +24,7 @@
   "author": "Ricardo Lima Mariz",
   "license": "ISC",
   "dependencies": {
+    "socket.io": "^4.6.1",
     "socket.io-client": "^4.6.1",
     "websocket": "^1.0.34"
   }

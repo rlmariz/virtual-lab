@@ -5,6 +5,6 @@
     "private": true,
     "dependencies": {
         "node-red-dashboard": "~3.4.0",
-        "red-contrib-remotelearn-intelligentcontrol": "file:../usr/src/node-red/nodes/intelligentcontrol"
+        "red-contrib-remotelearn-intelligentcontrol": "file:../nodes/intelligentcontrol"
     }
 }
