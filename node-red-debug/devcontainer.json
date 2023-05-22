@@ -6,7 +6,7 @@
 	// Update the 'dockerComposeFile' list if you have more compose files or use different names.
 	// The .devcontainer/docker-compose.yml file contains any overrides you need/want to make.
 	"dockerComposeFile": [
-		"../../docker-compose.devcontainer.yml"//,//,
+		"../docker-compose.devcontainer.yml"//,//,
 		//"docker-compose.yml"
 	],
 
@@ -20,7 +20,7 @@
 		"ghcr.io/devcontainers/features/git:1": {}
 	},
 
-  	"workspaceFolder": "/workspace/node-red-debug",
+  	"workspaceFolder": "/node-red",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
